@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-const tokenAPI = "984e963f-acad-4ad0-aed3-7e976716e280"
+
 
 func HomeHandler(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
