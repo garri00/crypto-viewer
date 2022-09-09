@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"crypto-viewer/scr/config"
+	"crypto-viewer/src/config"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"

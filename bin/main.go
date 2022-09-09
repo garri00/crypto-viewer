@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crypto-viewer/scr/handlers"
+	"crypto-viewer/src/handlers"
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
