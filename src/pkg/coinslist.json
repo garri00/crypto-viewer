@@ -1,0 +1,32 @@
+{
+ "data": [
+  {
+   "id": 1,
+   "name": "Bitcoin",
+   "symbol": "BTC",
+   "slug": "bitcoin",
+   "num_market_pairs": 9727,
+   "date_added": "2013-04-28T00:00:00Z",
+   "max_supply": 21000000,
+   "circulating_supply": 19147775,
+   "total_supply": 19147775,
+   "quote": {
+    "USD": {
+     "price": 21645.955461252917,
+     "volume_24h": 35162257546.796936,
+     "volume_change_24h": -7.269,
+     "percent_change_1h": 0.60476545,
+     "percent_change_24h": 1.95310033,
+     "percent_change_7d": 9.41985624,
+     "percent_change_30d": -9.76543602,
+     "percent_change_60d": 11.24376299,
+     "percent_change_90d": -6.83001956,
+     "market_cap": 414471884832.0921,
+     "market_cap_dominance": 39.095,
+     "fully_diluted_market_cap": 454565064686.31,
+     "last_updated": "2022-09-11T16:02:00Z"
+    }
+   }
+  }
+ ]
+}

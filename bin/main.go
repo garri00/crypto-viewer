@@ -17,7 +17,7 @@ func main() {
 	})
 
 	r.Get("/home", handlers.HomeHandler)
-	r.Get("/coins", handlers.Coins)
+	r.Get("/coins", handlers.CoinsResty)
 
 	http.ListenAndServe(":8080", r)
 	fmt.Println("server STOP")

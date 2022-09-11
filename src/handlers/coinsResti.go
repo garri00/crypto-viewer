@@ -4,46 +4,37 @@ import (
 	"crypto-viewer/src/config"
 	"encoding/json"
 	"fmt"
+	"github.com/go-resty/resty/v2"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"time"
 )
 
-func Coins(w http.ResponseWriter, r *http.Request) {
+func CoinsResty(w http.ResponseWriter, r *http.Request) {
 
-	u := url.URL{}
-	values := u.Query()
-	values.Add("start", r.URL.Query().Get("start"))
-	values.Add("limit", r.URL.Query().Get("limit"))
-	u.RawQuery = values.Encode()
+	client := resty.New()
 
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"+u.String(), nil)
+	resp, err := client.R().
+		EnableTrace().
+		SetQueryParams(map[string]string{
+			"start": r.URL.Query().Get("start"),
+			"limit": r.URL.Query().Get("limit"),
+		}).
+		SetHeader("Accepts", "application/json").
+		SetHeader("X-CMC_PRO_API_KEY", config.TokenAPI).
+		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
+
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to create GET request"))
-
-		return
-	}
-
-	req.Header.Set("Accepts", "application/json")
-	req.Header.Add("X-CMC_PRO_API_KEY", config.GetConfigTokenAPI())
-
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Print(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("error sending request to server"))
 		return
 	}
 
 	fmt.Println(resp.Request.URL)
-	respBody, _ := ioutil.ReadAll(resp.Body)
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode() != http.StatusOK {
 		var errResponse struct {
 			Status struct {
 				ErrorCode    int    `json:"error_code"`
@@ -51,7 +42,7 @@ func Coins(w http.ResponseWriter, r *http.Request) {
 			} `json:"status"`
 		}
 
-		if err := json.Unmarshal(respBody, &errResponse); err != nil {
+		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
 			log.Print(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("failed to unmarshal errResponse"))
@@ -97,7 +88,7 @@ func Coins(w http.ResponseWriter, r *http.Request) {
 
 	okResponse := Coin{}
 
-	if err := json.Unmarshal(respBody, &okResponse); err != nil {
+	if err := json.Unmarshal(resp.Body(), &okResponse); err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to unmarshal okResponse"))
@@ -111,11 +102,9 @@ func Coins(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("failed to marshal okResponse"))
 		return
 	}
-
 	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
 	fmt.Println(resp.Status)
 	w.WriteHeader(http.StatusOK)
 
 	w.Write(file)
-
 }
