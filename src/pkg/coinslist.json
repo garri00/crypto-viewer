@@ -5,26 +5,1398 @@
    "name": "Bitcoin",
    "symbol": "BTC",
    "slug": "bitcoin",
-   "num_market_pairs": 9727,
+   "num_market_pairs": 9730,
    "date_added": "2013-04-28T00:00:00Z",
    "max_supply": 21000000,
-   "circulating_supply": 19147775,
-   "total_supply": 19147775,
+   "circulating_supply": 19148768,
+   "total_supply": 19148768,
    "quote": {
     "USD": {
-     "price": 21645.955461252917,
-     "volume_24h": 35162257546.796936,
-     "volume_change_24h": -7.269,
-     "percent_change_1h": 0.60476545,
-     "percent_change_24h": 1.95310033,
-     "percent_change_7d": 9.41985624,
-     "percent_change_30d": -9.76543602,
-     "percent_change_60d": 11.24376299,
-     "percent_change_90d": -6.83001956,
-     "market_cap": 414471884832.0921,
-     "market_cap_dominance": 39.095,
-     "fully_diluted_market_cap": 454565064686.31,
-     "last_updated": "2022-09-11T16:02:00Z"
+     "price": 22299.15217009569,
+     "volume_24h": 49460732968.66204,
+     "volume_change_24h": 42.5837,
+     "percent_change_1h": -0.5978133,
+     "percent_change_24h": 3.38606158,
+     "percent_change_7d": 11.87460974,
+     "percent_change_30d": -9.00104384,
+     "percent_change_60d": 10.79591341,
+     "percent_change_90d": -0.67835354,
+     "market_cap": 427001291501.85895,
+     "market_cap_dominance": 39.9095,
+     "fully_diluted_market_cap": 468282195572.01,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1027,
+   "name": "Ethereum",
+   "symbol": "ETH",
+   "slug": "ethereum",
+   "num_market_pairs": 6085,
+   "date_added": "2015-08-07T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 122340052.3115,
+   "total_supply": 122340052.3115,
+   "quote": {
+    "USD": {
+     "price": 1732.4523104260993,
+     "volume_24h": 16787724691.197575,
+     "volume_change_24h": 33.7516,
+     "percent_change_1h": -1.12297598,
+     "percent_change_24h": -2.02230548,
+     "percent_change_7d": 8.20333993,
+     "percent_change_30d": -12.75090134,
+     "percent_change_60d": 55.94882401,
+     "percent_change_90d": 42.13888193,
+     "market_cap": 211948306284.708,
+     "market_cap_dominance": 19.8215,
+     "fully_diluted_market_cap": 211948306284.71,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 825,
+   "name": "Tether",
+   "symbol": "USDT",
+   "slug": "tether",
+   "num_market_pairs": 39565,
+   "date_added": "2015-02-25T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 67724203603.2675,
+   "total_supply": 69156782826.46896,
+   "quote": {
+    "USD": {
+     "price": 1.000186927228457,
+     "volume_24h": 64247277602.00495,
+     "volume_change_24h": 34.821,
+     "percent_change_1h": 0.00100079,
+     "percent_change_24h": -0.01090458,
+     "percent_change_7d": 0.01758252,
+     "percent_change_30d": -0.01793971,
+     "percent_change_60d": 0.0765651,
+     "percent_change_90d": 0.12392382,
+     "market_cap": 67736863100.94651,
+     "market_cap_dominance": 6.331,
+     "fully_diluted_market_cap": 69169710112.21,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3408,
+   "name": "USD Coin",
+   "symbol": "USDC",
+   "slug": "usd-coin",
+   "num_market_pairs": 6165,
+   "date_added": "2018-10-08T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 51581134664.46268,
+   "total_supply": 51581134664.46268,
+   "quote": {
+    "USD": {
+     "price": 0.9999379708197387,
+     "volume_24h": 6609067931.545565,
+     "volume_change_24h": 18.2311,
+     "percent_change_1h": -0.00079017,
+     "percent_change_24h": 0.00525001,
+     "percent_change_7d": -0.03018748,
+     "percent_change_30d": -0.001309,
+     "percent_change_60d": -0.01316956,
+     "percent_change_90d": -0.03200689,
+     "market_cap": 51577935128.962494,
+     "market_cap_dominance": 4.8214,
+     "fully_diluted_market_cap": 51577935128.96,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1839,
+   "name": "BNB",
+   "symbol": "BNB",
+   "slug": "bnb",
+   "num_market_pairs": 1100,
+   "date_added": "2017-07-25T00:00:00Z",
+   "max_supply": 200000000,
+   "circulating_supply": 161337261.09,
+   "total_supply": 161337261.09,
+   "quote": {
+    "USD": {
+     "price": 296.69892937728383,
+     "volume_24h": 921461599.2074103,
+     "volume_change_24h": 28.254,
+     "percent_change_1h": -0.81525857,
+     "percent_change_24h": 0.79235895,
+     "percent_change_7d": 7.05199013,
+     "percent_change_30d": -9.71648323,
+     "percent_change_60d": 27.90019245,
+     "percent_change_90d": 32.35367252,
+     "market_cap": 47868592634.066315,
+     "market_cap_dominance": 4.4746,
+     "fully_diluted_market_cap": 59339785875.46,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4687,
+   "name": "Binance USD",
+   "symbol": "BUSD",
+   "slug": "binance-usd",
+   "num_market_pairs": 5065,
+   "date_added": "2019-09-20T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 20057077074.149254,
+   "total_supply": 20057077074.149254,
+   "quote": {
+    "USD": {
+     "price": 0.9996925462927844,
+     "volume_24h": 10771503608.351254,
+     "volume_change_24h": 23.6449,
+     "percent_change_1h": -0.03194064,
+     "percent_change_24h": -0.03676672,
+     "percent_change_7d": -0.04668199,
+     "percent_change_30d": -0.01361325,
+     "percent_change_60d": 0.0220774,
+     "percent_change_90d": -0.09595353,
+     "market_cap": 20050910451.446896,
+     "market_cap_dominance": 1.8743,
+     "fully_diluted_market_cap": 20050910451.45,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 52,
+   "name": "XRP",
+   "symbol": "XRP",
+   "slug": "xrp",
+   "num_market_pairs": 813,
+   "date_added": "2013-08-04T00:00:00Z",
+   "max_supply": 100000000000,
+   "circulating_supply": 49826021773,
+   "total_supply": 99989302361,
+   "quote": {
+    "USD": {
+     "price": 0.35488616457380273,
+     "volume_24h": 1015647788.0164266,
+     "volume_change_24h": 68.1859,
+     "percent_change_1h": -0.25445399,
+     "percent_change_24h": -0.24490248,
+     "percent_change_7d": 7.95799238,
+     "percent_change_30d": -6.9171737,
+     "percent_change_60d": 11.5751987,
+     "percent_change_90d": 11.75885441,
+     "market_cap": 17682565762.990757,
+     "market_cap_dominance": 1.6539,
+     "fully_diluted_market_cap": 35488616457.38,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2010,
+   "name": "Cardano",
+   "symbol": "ADA",
+   "slug": "cardano",
+   "num_market_pairs": 568,
+   "date_added": "2017-10-01T00:00:00Z",
+   "max_supply": 45000000000,
+   "circulating_supply": 34182044152.629,
+   "total_supply": 34854947575.48,
+   "quote": {
+    "USD": {
+     "price": 0.5139672283650353,
+     "volume_24h": 809355531.427548,
+     "volume_change_24h": 12.9671,
+     "percent_change_1h": -0.94329304,
+     "percent_change_24h": 0.63562214,
+     "percent_change_7d": 4.13825929,
+     "percent_change_30d": -8.74908361,
+     "percent_change_60d": 19.93059734,
+     "percent_change_90d": 3.10183339,
+     "market_cap": 17568450492.97799,
+     "market_cap_dominance": 1.6423,
+     "fully_diluted_market_cap": 23128525276.43,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 5426,
+   "name": "Solana",
+   "symbol": "SOL",
+   "slug": "solana",
+   "num_market_pairs": 381,
+   "date_added": "2020-04-10T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 353415594.06637806,
+   "total_supply": 511616946.142289,
+   "quote": {
+    "USD": {
+     "price": 37.558157796893276,
+     "volume_24h": 1657350108.14331,
+     "volume_change_24h": 156.2206,
+     "percent_change_1h": -1.47866417,
+     "percent_change_24h": 7.65147223,
+     "percent_change_7d": 17.85425659,
+     "percent_change_30d": -18.992866,
+     "percent_change_60d": 8.96656385,
+     "percent_change_90d": 24.66262641,
+     "market_cap": 13273638649.827806,
+     "market_cap_dominance": 1.2414,
+     "fully_diluted_market_cap": 19215389994.78,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 6636,
+   "name": "Polkadot",
+   "symbol": "DOT",
+   "slug": "polkadot-new",
+   "num_market_pairs": 408,
+   "date_added": "2020-08-19T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 1116031489.74032,
+   "total_supply": 1231455160.0654998,
+   "quote": {
+    "USD": {
+     "price": 7.883952593548956,
+     "volume_24h": 444834547.225582,
+     "volume_change_24h": 72.9992,
+     "percent_change_1h": -1.4207239,
+     "percent_change_24h": 1.93948718,
+     "percent_change_7d": 4.21267952,
+     "percent_change_30d": -16.97787297,
+     "percent_change_60d": 22.14845013,
+     "percent_change_90d": 7.22143786,
+     "market_cap": 8798739358.0205,
+     "market_cap_dominance": 0.8229,
+     "fully_diluted_market_cap": 9708734103.04,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 74,
+   "name": "Dogecoin",
+   "symbol": "DOGE",
+   "slug": "dogecoin",
+   "num_market_pairs": 560,
+   "date_added": "2013-12-15T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 132670764299.89409,
+   "total_supply": 132670764299.89409,
+   "quote": {
+    "USD": {
+     "price": 0.06406344765329247,
+     "volume_24h": 391758752.5533601,
+     "volume_change_24h": 16.8376,
+     "percent_change_1h": -0.99528907,
+     "percent_change_24h": 0.1382721,
+     "percent_change_7d": 2.83326535,
+     "percent_change_30d": -12.62571359,
+     "percent_change_60d": 5.18829365,
+     "percent_change_90d": 14.05863391,
+     "market_cap": 8499346563.848569,
+     "market_cap_dominance": 0.7945,
+     "fully_diluted_market_cap": 8499346563.85,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3890,
+   "name": "Polygon",
+   "symbol": "MATIC",
+   "slug": "polygon",
+   "num_market_pairs": 483,
+   "date_added": "2019-04-28T00:00:00Z",
+   "max_supply": 10000000000,
+   "circulating_supply": 8734317475.28493,
+   "total_supply": 10000000000,
+   "quote": {
+    "USD": {
+     "price": 0.927697626817385,
+     "volume_24h": 545594567.9129177,
+     "volume_change_24h": 76.3036,
+     "percent_change_1h": -0.50984313,
+     "percent_change_24h": 3.64760066,
+     "percent_change_7d": 5.29843254,
+     "percent_change_30d": -8.14741471,
+     "percent_change_60d": 43.25349395,
+     "percent_change_90d": 118.22383631,
+     "market_cap": 8102805593.6914425,
+     "market_cap_dominance": 0.7574,
+     "fully_diluted_market_cap": 9276976268.17,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 5994,
+   "name": "Shiba Inu",
+   "symbol": "SHIB",
+   "slug": "shiba-inu",
+   "num_market_pairs": 413,
+   "date_added": "2020-08-01T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 549063278876301.94,
+   "total_supply": 589735030408322.8,
+   "quote": {
+    "USD": {
+     "price": 0.000012940306566731297,
+     "volume_24h": 462118276.6677901,
+     "volume_change_24h": -23.4736,
+     "percent_change_1h": -1.40531542,
+     "percent_change_24h": -0.54786635,
+     "percent_change_7d": 3.67406199,
+     "percent_change_30d": 2.37678897,
+     "percent_change_60d": 24.4812636,
+     "percent_change_90d": 58.21116247,
+     "market_cap": 7105047153.194027,
+     "market_cap_dominance": 0.6642,
+     "fully_diluted_market_cap": 7631352086.62,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4943,
+   "name": "Dai",
+   "symbol": "DAI",
+   "slug": "multi-collateral-dai",
+   "num_market_pairs": 1331,
+   "date_added": "2019-11-22T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 6894624920.311573,
+   "total_supply": 6894624920.311573,
+   "quote": {
+    "USD": {
+     "price": 0.9990481686988463,
+     "volume_24h": 441149397.07586867,
+     "volume_change_24h": 23.64,
+     "percent_change_1h": -0.0907735,
+     "percent_change_24h": -0.07698585,
+     "percent_change_7d": -0.14712383,
+     "percent_change_30d": -0.03958902,
+     "percent_change_60d": -0.16812955,
+     "percent_change_90d": -0.13829118,
+     "market_cap": 6888062400.502706,
+     "market_cap_dominance": 0.6443,
+     "fully_diluted_market_cap": 6888062400.5,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 5805,
+   "name": "Avalanche",
+   "symbol": "AVAX",
+   "slug": "avalanche",
+   "num_market_pairs": 311,
+   "date_added": "2020-07-13T00:00:00Z",
+   "max_supply": 720000000,
+   "circulating_supply": 295668460.0584568,
+   "total_supply": 404229626.49901325,
+   "quote": {
+    "USD": {
+     "price": 21.617608480211135,
+     "volume_24h": 620885690.364557,
+     "volume_change_24h": 117.4862,
+     "percent_change_1h": -0.67386224,
+     "percent_change_24h": 5.92124397,
+     "percent_change_7d": 14.59515569,
+     "percent_change_30d": -26.86454922,
+     "percent_change_60d": 17.14174918,
+     "percent_change_90d": 31.20659974,
+     "market_cap": 6391645009.490663,
+     "market_cap_dominance": 0.5978,
+     "fully_diluted_market_cap": 15564678105.75,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1958,
+   "name": "TRON",
+   "symbol": "TRX",
+   "slug": "tron",
+   "num_market_pairs": 684,
+   "date_added": "2017-09-13T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 92369450734.56273,
+   "total_supply": 92369450414.94423,
+   "quote": {
+    "USD": {
+     "price": 0.06389178621123974,
+     "volume_24h": 409364326.5642707,
+     "volume_change_24h": 2.8431,
+     "percent_change_1h": -0.47802209,
+     "percent_change_24h": -0.4835108,
+     "percent_change_7d": 1.42480649,
+     "percent_change_30d": -8.72336051,
+     "percent_change_60d": -2.54470552,
+     "percent_change_90d": 8.5470334,
+     "market_cap": 5901649198.782324,
+     "market_cap_dominance": 0.5516,
+     "fully_diluted_market_cap": 5901649178.36,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3717,
+   "name": "Wrapped Bitcoin",
+   "symbol": "WBTC",
+   "slug": "wrapped-bitcoin",
+   "num_market_pairs": 600,
+   "date_added": "2019-01-30T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 248858.31875398,
+   "total_supply": 248858.31875398,
+   "quote": {
+    "USD": {
+     "price": 22255.280230410117,
+     "volume_24h": 190765463.07459217,
+     "volume_change_24h": 36.9941,
+     "percent_change_1h": -0.45505582,
+     "percent_change_24h": 3.18871386,
+     "percent_change_7d": 11.6583775,
+     "percent_change_30d": -9.12601602,
+     "percent_change_60d": 10.92459835,
+     "percent_change_90d": -0.88986062,
+     "market_cap": 5538411621.53855,
+     "market_cap_dominance": 0.5177,
+     "fully_diluted_market_cap": 5538411621.54,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1321,
+   "name": "Ethereum Classic",
+   "symbol": "ETC",
+   "slug": "ethereum-classic",
+   "num_market_pairs": 342,
+   "date_added": "2016-07-24T00:00:00Z",
+   "max_supply": 210700000,
+   "circulating_supply": 136835264.1447801,
+   "total_supply": 210700000,
+   "quote": {
+    "USD": {
+     "price": 38.427920870950175,
+     "volume_24h": 1229948513.1639383,
+     "volume_change_24h": 66.66,
+     "percent_change_1h": -1.77969483,
+     "percent_change_24h": -0.26206993,
+     "percent_change_7d": 5.19902379,
+     "percent_change_30d": -13.1575659,
+     "percent_change_60d": 169.68804831,
+     "percent_change_90d": 163.79972725,
+     "market_cap": 5258294702.911176,
+     "market_cap_dominance": 0.4915,
+     "fully_diluted_market_cap": 8096762927.51,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 7083,
+   "name": "Uniswap",
+   "symbol": "UNI",
+   "slug": "uniswap",
+   "num_market_pairs": 472,
+   "date_added": "2020-09-17T00:00:00Z",
+   "max_supply": 1000000000,
+   "circulating_supply": 745895689.5147561,
+   "total_supply": 1000000000,
+   "quote": {
+    "USD": {
+     "price": 6.796941995588962,
+     "volume_24h": 160145594.1500966,
+     "volume_change_24h": 46.6484,
+     "percent_change_1h": -1.66815095,
+     "percent_change_24h": 3.55698959,
+     "percent_change_7d": 6.3339867,
+     "percent_change_30d": -25.17319721,
+     "percent_change_60d": 7.56958923,
+     "percent_change_90d": 82.38177823,
+     "market_cap": 5069809736.391631,
+     "market_cap_dominance": 0.4739,
+     "fully_diluted_market_cap": 6796941995.59,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3957,
+   "name": "UNUS SED LEO",
+   "symbol": "LEO",
+   "slug": "unus-sed-leo",
+   "num_market_pairs": 20,
+   "date_added": "2019-05-21T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 953954130,
+   "total_supply": 985239504,
+   "quote": {
+    "USD": {
+     "price": 4.98013950739633,
+     "volume_24h": 3575440.48562686,
+     "volume_change_24h": 5.8994,
+     "percent_change_1h": -0.5546751,
+     "percent_change_24h": -0.2925747,
+     "percent_change_7d": -3.63589843,
+     "percent_change_30d": 1.94726548,
+     "percent_change_60d": -7.95050406,
+     "percent_change_90d": -7.39954451,
+     "market_cap": 4750824651.056894,
+     "market_cap_dominance": 0.4441,
+     "fully_diluted_market_cap": 4906630178.12,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3794,
+   "name": "Cosmos",
+   "symbol": "ATOM",
+   "slug": "cosmos",
+   "num_market_pairs": 340,
+   "date_added": "2019-03-14T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 286370297,
+   "total_supply": 0,
+   "quote": {
+    "USD": {
+     "price": 15.824838842890014,
+     "volume_24h": 576252633.6719153,
+     "volume_change_24h": 16.5906,
+     "percent_change_1h": -1.75706497,
+     "percent_change_24h": 0.6496313,
+     "percent_change_7d": 23.13666182,
+     "percent_change_30d": 30.64167069,
+     "percent_change_60d": 88.8016108,
+     "percent_change_90d": 144.62913814,
+     "market_cap": 4531763799.415549,
+     "market_cap_dominance": 0.4238,
+     "fully_diluted_market_cap": 0,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2,
+   "name": "Litecoin",
+   "symbol": "LTC",
+   "slug": "litecoin",
+   "num_market_pairs": 826,
+   "date_added": "2013-04-28T00:00:00Z",
+   "max_supply": 84000000,
+   "circulating_supply": 71153743.77579072,
+   "total_supply": 84000000,
+   "quote": {
+    "USD": {
+     "price": 61.2589799560408,
+     "volume_24h": 529622491.8523441,
+     "volume_change_24h": 5.991,
+     "percent_change_1h": -1.36195215,
+     "percent_change_24h": -1.98379952,
+     "percent_change_7d": 1.08567033,
+     "percent_change_30d": -4.58245942,
+     "percent_change_60d": 24.46756798,
+     "percent_change_90d": 36.57044668,
+     "market_cap": 4358805763.758427,
+     "market_cap_dominance": 0.4076,
+     "fully_diluted_market_cap": 5145754316.31,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 6535,
+   "name": "NEAR Protocol",
+   "symbol": "NEAR",
+   "slug": "near-protocol",
+   "num_market_pairs": 182,
+   "date_added": "2020-08-11T00:00:00Z",
+   "max_supply": 1000000000,
+   "circulating_supply": 781574591,
+   "total_supply": 1000000000,
+   "quote": {
+    "USD": {
+     "price": 5.080523276706245,
+     "volume_24h": 687049058.5665491,
+     "volume_change_24h": 166.7001,
+     "percent_change_1h": -1.09283069,
+     "percent_change_24h": 6.08519409,
+     "percent_change_7d": 20.76253479,
+     "percent_change_30d": -13.90457414,
+     "percent_change_60d": 53.37133475,
+     "percent_change_90d": 47.96677536,
+     "market_cap": 3970807902.0576634,
+     "market_cap_dominance": 0.3714,
+     "fully_diluted_market_cap": 5080523276.71,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1975,
+   "name": "Chainlink",
+   "symbol": "LINK",
+   "slug": "chainlink",
+   "num_market_pairs": 773,
+   "date_added": "2017-09-20T00:00:00Z",
+   "max_supply": 1000000000,
+   "circulating_supply": 491599970.4527867,
+   "total_supply": 1000000000,
+   "quote": {
+    "USD": {
+     "price": 7.817816692528804,
+     "volume_24h": 587727461.5221032,
+     "volume_change_24h": 16.6493,
+     "percent_change_1h": -2.10444557,
+     "percent_change_24h": -0.86762273,
+     "percent_change_7d": 7.76525171,
+     "percent_change_30d": -14.78563276,
+     "percent_change_60d": 27.23289004,
+     "percent_change_90d": 23.66216148,
+     "market_cap": 3843238455.0524626,
+     "market_cap_dominance": 0.3593,
+     "fully_diluted_market_cap": 7817816692.53,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4195,
+   "name": "FTX Token",
+   "symbol": "FTT",
+   "slug": "ftx-token",
+   "num_market_pairs": 140,
+   "date_added": "2019-07-31T00:00:00Z",
+   "max_supply": 352170015,
+   "circulating_supply": 134088740.45999673,
+   "total_supply": 329958076.5272245,
+   "quote": {
+    "USD": {
+     "price": 28.22464063936004,
+     "volume_24h": 100795963.19239087,
+     "volume_change_24h": 31.618,
+     "percent_change_1h": -0.62651348,
+     "percent_change_24h": 2.06314492,
+     "percent_change_7d": 6.76870677,
+     "percent_change_30d": -10.44559274,
+     "percent_change_60d": 12.80003922,
+     "percent_change_90d": 18.62483679,
+     "market_cap": 3784606513.2678246,
+     "market_cap_dominance": 0.3537,
+     "fully_diluted_market_cap": 9939872117.33,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3635,
+   "name": "Cronos",
+   "symbol": "CRO",
+   "slug": "cronos",
+   "num_market_pairs": 159,
+   "date_added": "2018-12-14T00:00:00Z",
+   "max_supply": 30263013692,
+   "circulating_supply": 25263013692,
+   "total_supply": 30263013692,
+   "quote": {
+    "USD": {
+     "price": 0.1232563089338137,
+     "volume_24h": 27460629.04840705,
+     "volume_change_24h": 50.5907,
+     "percent_change_1h": -1.50891031,
+     "percent_change_24h": 0.23393598,
+     "percent_change_7d": 2.59623726,
+     "percent_change_30d": -20.2495717,
+     "percent_change_60d": 7.22412579,
+     "percent_change_90d": 3.84536781,
+     "market_cap": 3113825820.2203174,
+     "market_cap_dominance": 0.291,
+     "fully_diluted_market_cap": 3730107364.89,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 328,
+   "name": "Monero",
+   "symbol": "XMR",
+   "slug": "monero",
+   "num_market_pairs": 187,
+   "date_added": "2014-05-21T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 18173407.28172722,
+   "total_supply": 18173407.28172722,
+   "quote": {
+    "USD": {
+     "price": 161.22160585506336,
+     "volume_24h": 96885484.07650132,
+     "volume_change_24h": 50.1333,
+     "percent_change_1h": -0.26978388,
+     "percent_change_24h": 2.81210079,
+     "percent_change_7d": 2.14367011,
+     "percent_change_30d": -3.47524635,
+     "percent_change_60d": 25.79952056,
+     "percent_change_90d": 30.1116148,
+     "market_cap": 2929945905.8181643,
+     "market_cap_dominance": 0.2739,
+     "fully_diluted_market_cap": 2929945905.82,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 512,
+   "name": "Stellar",
+   "symbol": "XLM",
+   "slug": "stellar",
+   "num_market_pairs": 452,
+   "date_added": "2014-08-05T00:00:00Z",
+   "max_supply": 50001806812,
+   "circulating_supply": 25328341985.655285,
+   "total_supply": 50001787594.26975,
+   "quote": {
+    "USD": {
+     "price": 0.11474637685527857,
+     "volume_24h": 124430273.5217391,
+     "volume_change_24h": 36.5988,
+     "percent_change_1h": -1.07762872,
+     "percent_change_24h": 0.44702653,
+     "percent_change_7d": 9.438142,
+     "percent_change_30d": -9.75161196,
+     "percent_change_60d": 10.662725,
+     "percent_change_90d": 2.0739673,
+     "market_cap": 2906335474.605376,
+     "market_cap_dominance": 0.2718,
+     "fully_diluted_market_cap": 5737526167.89,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1831,
+   "name": "Bitcoin Cash",
+   "symbol": "BCH",
+   "slug": "bitcoin-cash",
+   "num_market_pairs": 635,
+   "date_added": "2017-07-23T00:00:00Z",
+   "max_supply": 21000000,
+   "circulating_supply": 19171606.25,
+   "total_supply": 19171606.25,
+   "quote": {
+    "USD": {
+     "price": 129.4854076228726,
+     "volume_24h": 307825108.8592704,
+     "volume_change_24h": 27.4903,
+     "percent_change_1h": -1.33708715,
+     "percent_change_24h": -0.71804198,
+     "percent_change_7d": 5.0577515,
+     "percent_change_30d": -10.22183804,
+     "percent_change_60d": 28.31916735,
+     "percent_change_90d": 2.238828,
+     "market_cap": 2482443250.066462,
+     "market_cap_dominance": 0.232,
+     "fully_diluted_market_cap": 2719193560.08,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4030,
+   "name": "Algorand",
+   "symbol": "ALGO",
+   "slug": "algorand",
+   "num_market_pairs": 247,
+   "date_added": "2019-06-20T00:00:00Z",
+   "max_supply": 10000000000,
+   "circulating_supply": 6920025534.47906,
+   "total_supply": 7338305892.529937,
+   "quote": {
+    "USD": {
+     "price": 0.324915328744173,
+     "volume_24h": 90114810.30004226,
+     "volume_change_24h": 17.1731,
+     "percent_change_1h": -0.99296399,
+     "percent_change_24h": -0.17532237,
+     "percent_change_7d": 7.0436311,
+     "percent_change_30d": -12.39665045,
+     "percent_change_60d": 5.10688725,
+     "percent_change_90d": 6.9577664,
+     "market_cap": 2248422371.4533353,
+     "market_cap_dominance": 0.2102,
+     "fully_diluted_market_cap": 3249153287.44,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4558,
+   "name": "Flow",
+   "symbol": "FLOW",
+   "slug": "flow",
+   "num_market_pairs": 90,
+   "date_added": "2021-01-27T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 1036200000,
+   "total_supply": 1390757889,
+   "quote": {
+    "USD": {
+     "price": 2.148549595967724,
+     "volume_24h": 125899257.42383274,
+     "volume_change_24h": 76.1377,
+     "percent_change_1h": -3.43039769,
+     "percent_change_24h": 2.80092201,
+     "percent_change_7d": 11.96968606,
+     "percent_change_30d": -26.50999791,
+     "percent_change_60d": 44.81640082,
+     "percent_change_90d": 36.31586138,
+     "market_cap": 2226327091.341756,
+     "market_cap_dominance": 0.2082,
+     "fully_diluted_market_cap": 2988112300.5,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4172,
+   "name": "Terra Classic",
+   "symbol": "LUNC",
+   "slug": "terra-luna",
+   "num_market_pairs": 340,
+   "date_added": "2019-07-26T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 6151072613161,
+   "total_supply": 6904017889662,
+   "quote": {
+    "USD": {
+     "price": 0.0003526544517789917,
+     "volume_24h": 998629946.1674478,
+     "volume_change_24h": -10.6858,
+     "percent_change_1h": -6.48559926,
+     "percent_change_24h": -12.37153257,
+     "percent_change_7d": 3.28617521,
+     "percent_change_30d": 260.02930983,
+     "percent_change_60d": 284.84457053,
+     "percent_change_90d": 476.79091214,
+     "market_cap": 2169203140.247062,
+     "market_cap_dominance": 0.2029,
+     "fully_diluted_market_cap": 2434732643.95,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3077,
+   "name": "VeChain",
+   "symbol": "VET",
+   "slug": "vechain",
+   "num_market_pairs": 198,
+   "date_added": "2017-08-22T00:00:00Z",
+   "max_supply": 86712634466,
+   "circulating_supply": 72511146418,
+   "total_supply": 85985041177,
+   "quote": {
+    "USD": {
+     "price": 0.026008765894985904,
+     "volume_24h": 85525285.54931054,
+     "volume_change_24h": 29.784,
+     "percent_change_1h": -1.28671441,
+     "percent_change_24h": 1.19318051,
+     "percent_change_7d": 6.60704874,
+     "percent_change_30d": -21.34583548,
+     "percent_change_60d": 18.25440778,
+     "percent_change_90d": 8.55793926,
+     "market_cap": 1885925431.9628077,
+     "market_cap_dominance": 0.1763,
+     "fully_diluted_market_cap": 2255288609.96,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2280,
+   "name": "Filecoin",
+   "symbol": "FIL",
+   "slug": "filecoin",
+   "num_market_pairs": 242,
+   "date_added": "2017-12-13T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 279699899,
+   "total_supply": 279699899,
+   "quote": {
+    "USD": {
+     "price": 6.690556130816915,
+     "volume_24h": 320328637.66331553,
+     "volume_change_24h": 6.5946,
+     "percent_change_1h": 0.94590342,
+     "percent_change_24h": 0.90713948,
+     "percent_change_7d": 9.933476,
+     "percent_change_30d": -21.88504016,
+     "percent_change_60d": 27.05548584,
+     "percent_change_90d": 20.81292871,
+     "market_cap": 1871347874.0433218,
+     "market_cap_dominance": 0.1749,
+     "fully_diluted_market_cap": 1871347874.04,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 8916,
+   "name": "Internet Computer",
+   "symbol": "ICP",
+   "slug": "internet-computer",
+   "num_market_pairs": 131,
+   "date_added": "2021-03-23T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 259771268.06362426,
+   "total_supply": 488508776.41603994,
+   "quote": {
+    "USD": {
+     "price": 7.103762313623426,
+     "volume_24h": 65459995.65564395,
+     "volume_change_24h": -0.2129,
+     "percent_change_1h": -1.5304436,
+     "percent_change_24h": -2.3810913,
+     "percent_change_7d": 7.95099439,
+     "percent_change_30d": -14.03318722,
+     "percent_change_60d": 8.58778719,
+     "percent_change_90d": 24.9832787,
+     "market_cap": 1845353344.2325425,
+     "market_cap_dominance": 0.1726,
+     "fully_diluted_market_cap": 3470250235.78,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1765,
+   "name": "EOS",
+   "symbol": "EOS",
+   "slug": "eos",
+   "num_market_pairs": 483,
+   "date_added": "2017-07-01T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 1000403762.172,
+   "total_supply": 1061006819.1993,
+   "quote": {
+    "USD": {
+     "price": 1.7071553527806813,
+     "volume_24h": 472105511.32811874,
+     "volume_change_24h": -18.4731,
+     "percent_change_1h": -0.60640692,
+     "percent_change_24h": -0.96538466,
+     "percent_change_7d": 15.8678385,
+     "percent_change_30d": 26.78451138,
+     "percent_change_60d": 82.64735144,
+     "percent_change_90d": 82.20081276,
+     "market_cap": 1707844637.5338616,
+     "market_cap_dominance": 0.1596,
+     "fully_diluted_market_cap": 1811303470.73,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 18876,
+   "name": "ApeCoin",
+   "symbol": "APE",
+   "slug": "apecoin-ape",
+   "num_market_pairs": 195,
+   "date_added": "2022-03-17T12:26:36Z",
+   "max_supply": 1000000000,
+   "circulating_supply": 306875000,
+   "total_supply": 1000000000,
+   "quote": {
+    "USD": {
+     "price": 5.4282640703663265,
+     "volume_24h": 350620691.7729806,
+     "volume_change_24h": -21.5169,
+     "percent_change_1h": -1.26770091,
+     "percent_change_24h": -4.83756597,
+     "percent_change_7d": 14.63567599,
+     "percent_change_30d": -21.11294946,
+     "percent_change_60d": 20.47659881,
+     "percent_change_90d": 48.85169522,
+     "market_cap": 1665798536.5936666,
+     "market_cap_dominance": 0.1557,
+     "fully_diluted_market_cap": 5428264070.37,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2011,
+   "name": "Tezos",
+   "symbol": "XTZ",
+   "slug": "tezos",
+   "num_market_pairs": 237,
+   "date_added": "2017-10-06T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 908597305.740069,
+   "total_supply": 930097911.324241,
+   "quote": {
+    "USD": {
+     "price": 1.6603117300570744,
+     "volume_24h": 48380373.79369336,
+     "volume_change_24h": -0.7477,
+     "percent_change_1h": -2.16878562,
+     "percent_change_24h": -3.06568747,
+     "percent_change_7d": 8.65973509,
+     "percent_change_30d": -13.41578034,
+     "percent_change_60d": 10.07136943,
+     "percent_change_90d": 17.23434685,
+     "market_cap": 1508554764.6184907,
+     "market_cap_dominance": 0.141,
+     "fully_diluted_market_cap": 1544252472.27,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1966,
+   "name": "Decentraland",
+   "symbol": "MANA",
+   "slug": "decentraland",
+   "num_market_pairs": 302,
+   "date_added": "2017-09-17T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 1855087791.7804768,
+   "total_supply": 2193542627.320146,
+   "quote": {
+    "USD": {
+     "price": 0.8097338324272256,
+     "volume_24h": 162934075.11558437,
+     "volume_change_24h": 37.4783,
+     "percent_change_1h": -1.33726817,
+     "percent_change_24h": 0.18862579,
+     "percent_change_7d": 1.97617808,
+     "percent_change_30d": -24.51628692,
+     "percent_change_60d": 0.27614626,
+     "percent_change_90d": -1.7997647,
+     "market_cap": 1502127347.1273646,
+     "market_cap_dominance": 0.1404,
+     "fully_diluted_market_cap": 1776185678.21,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 6210,
+   "name": "The Sandbox",
+   "symbol": "SAND",
+   "slug": "the-sandbox",
+   "num_market_pairs": 268,
+   "date_added": "2020-08-05T00:00:00Z",
+   "max_supply": 3000000000,
+   "circulating_supply": 1499470108.2233226,
+   "total_supply": 3000000000,
+   "quote": {
+    "USD": {
+     "price": 0.9779964846967184,
+     "volume_24h": 265988199.05329373,
+     "volume_change_24h": 27.4852,
+     "percent_change_1h": -1.4313461,
+     "percent_change_24h": -0.17909492,
+     "percent_change_7d": 2.48798837,
+     "percent_change_30d": -26.96814314,
+     "percent_change_60d": -15.71242521,
+     "percent_change_90d": 8.45008902,
+     "market_cap": 1466476494.7502174,
+     "market_cap_dominance": 0.1371,
+     "fully_diluted_market_cap": 2933989454.09,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4642,
+   "name": "Hedera",
+   "symbol": "HBAR",
+   "slug": "hedera",
+   "num_market_pairs": 111,
+   "date_added": "2019-09-17T00:00:00Z",
+   "max_supply": 50000000000,
+   "circulating_supply": 21084776583.751095,
+   "total_supply": 50000000000,
+   "quote": {
+    "USD": {
+     "price": 0.06436143185865463,
+     "volume_24h": 35910703.27098327,
+     "volume_change_24h": 60.9434,
+     "percent_change_1h": -0.83685,
+     "percent_change_24h": 0.20511682,
+     "percent_change_7d": 4.36017199,
+     "percent_change_30d": -21.92158758,
+     "percent_change_60d": 3.41266132,
+     "percent_change_90d": -3.29517778,
+     "market_cap": 1357046411.3500528,
+     "market_cap_dominance": 0.1269,
+     "fully_diluted_market_cap": 3218071592.93,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 7278,
+   "name": "Aave",
+   "symbol": "AAVE",
+   "slug": "aave",
+   "num_market_pairs": 412,
+   "date_added": "2020-10-02T00:00:00Z",
+   "max_supply": 16000000,
+   "circulating_supply": 14090852.7623217,
+   "total_supply": 16000000,
+   "quote": {
+    "USD": {
+     "price": 93.588386329956,
+     "volume_24h": 185434449.041553,
+     "volume_change_24h": 22.9967,
+     "percent_change_1h": -1.25309387,
+     "percent_change_24h": 2.22315116,
+     "percent_change_7d": 4.86082838,
+     "percent_change_30d": -16.10968612,
+     "percent_change_60d": 15.55645846,
+     "percent_change_90d": 54.57327672,
+     "market_cap": 1318740172.0386908,
+     "market_cap_dominance": 0.1233,
+     "fully_diluted_market_cap": 1497414181.28,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3155,
+   "name": "Quant",
+   "symbol": "QNT",
+   "slug": "quant",
+   "num_market_pairs": 102,
+   "date_added": "2018-08-10T00:00:00Z",
+   "max_supply": 14612493,
+   "circulating_supply": 12072738,
+   "total_supply": 14612493.080826,
+   "quote": {
+    "USD": {
+     "price": 107.27243312300888,
+     "volume_24h": 38662549.49687843,
+     "volume_change_24h": 85.3183,
+     "percent_change_1h": -1.84732652,
+     "percent_change_24h": 2.54379571,
+     "percent_change_7d": 14.40667678,
+     "percent_change_30d": -15.88041771,
+     "percent_change_60d": 13.59285357,
+     "percent_change_90d": 122.26304777,
+     "market_cap": 1295071979.716608,
+     "market_cap_dominance": 0.1211,
+     "fully_diluted_market_cap": 1567517678.1,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 6892,
+   "name": "Elrond",
+   "symbol": "EGLD",
+   "slug": "elrond-egld",
+   "num_market_pairs": 120,
+   "date_added": "2020-09-04T00:00:00Z",
+   "max_supply": 31415926,
+   "circulating_supply": 23124951.92729391,
+   "total_supply": 23016298,
+   "quote": {
+    "USD": {
+     "price": 53.24711995301957,
+     "volume_24h": 56371801.89771942,
+     "volume_change_24h": 50.3522,
+     "percent_change_1h": -0.8875699,
+     "percent_change_24h": -0.75663328,
+     "percent_change_7d": 3.44461273,
+     "percent_change_30d": -19.80201439,
+     "percent_change_60d": -4.17768145,
+     "percent_change_90d": 16.49805315,
+     "market_cap": 1231337089.18043,
+     "market_cap_dominance": 0.1151,
+     "fully_diluted_market_cap": 1672807580.16,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 4066,
+   "name": "Chiliz",
+   "symbol": "CHZ",
+   "slug": "chiliz",
+   "num_market_pairs": 266,
+   "date_added": "2019-07-01T00:00:00Z",
+   "max_supply": 8888888888,
+   "circulating_supply": 6000386952.737894,
+   "total_supply": 8888888888,
+   "quote": {
+    "USD": {
+     "price": 0.20384870887132248,
+     "volume_24h": 268809037.0483784,
+     "volume_change_24h": -26.5986,
+     "percent_change_1h": -1.08173181,
+     "percent_change_24h": -2.43154692,
+     "percent_change_7d": -1.92457778,
+     "percent_change_30d": 27.09345011,
+     "percent_change_60d": 102.86937771,
+     "percent_change_90d": 115.04910066,
+     "market_cap": 1223171133.043949,
+     "market_cap_dominance": 0.1143,
+     "fully_diluted_market_cap": 1811988523.12,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 6783,
+   "name": "Axie Infinity",
+   "symbol": "AXS",
+   "slug": "axie-infinity",
+   "num_market_pairs": 248,
+   "date_added": "2020-08-31T00:00:00Z",
+   "max_supply": 270000000,
+   "circulating_supply": 83056186.67033975,
+   "total_supply": 270000000,
+   "quote": {
+    "USD": {
+     "price": 14.60904840079908,
+     "volume_24h": 103177113.80776429,
+     "volume_change_24h": 49.8835,
+     "percent_change_1h": -1.66499278,
+     "percent_change_24h": 0.67594136,
+     "percent_change_7d": 2.97909464,
+     "percent_change_30d": -24.46421181,
+     "percent_change_60d": 9.60274064,
+     "percent_change_90d": 1.8975873,
+     "market_cap": 1213371851.0527968,
+     "market_cap_dominance": 0.1134,
+     "fully_diluted_market_cap": 3944443068.22,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2416,
+   "name": "Theta Network",
+   "symbol": "THETA",
+   "slug": "theta-network",
+   "num_market_pairs": 122,
+   "date_added": "2018-01-17T00:00:00Z",
+   "max_supply": 1000000000,
+   "circulating_supply": 1000000000,
+   "total_supply": 1000000000,
+   "quote": {
+    "USD": {
+     "price": 1.195955417304934,
+     "volume_24h": 45574560.35751233,
+     "volume_change_24h": 64.0009,
+     "percent_change_1h": -1.53782739,
+     "percent_change_24h": 0.70137241,
+     "percent_change_7d": 1.67324614,
+     "percent_change_30d": -25.27876389,
+     "percent_change_60d": 5.94753971,
+     "percent_change_90d": 4.62155793,
+     "market_cap": 1195955417.304934,
+     "market_cap_dominance": 0.1118,
+     "fully_diluted_market_cap": 1195955417.3,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 2563,
+   "name": "TrueUSD",
+   "symbol": "TUSD",
+   "slug": "trueusd",
+   "num_market_pairs": 301,
+   "date_added": "2018-03-06T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 1064365486.2275721,
+   "total_supply": 1227899013.9824455,
+   "quote": {
+    "USD": {
+     "price": 1.000214268045334,
+     "volume_24h": 123038680.4552422,
+     "volume_change_24h": -24.7897,
+     "percent_change_1h": -0.03125704,
+     "percent_change_24h": 0.00519279,
+     "percent_change_7d": -0.04687088,
+     "percent_change_30d": 0.04730257,
+     "percent_change_60d": -0.01130002,
+     "percent_change_90d": -0.05292707,
+     "market_cap": 1064593545.7398272,
+     "market_cap_dominance": 0.0996,
+     "fully_diluted_market_cap": 1228162113.5,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 3602,
+   "name": "Bitcoin SV",
+   "symbol": "BSV",
+   "slug": "bitcoin-sv",
+   "num_market_pairs": 180,
+   "date_added": "2018-11-09T00:00:00Z",
+   "max_supply": 21000000,
+   "circulating_supply": 19167726.64423905,
+   "total_supply": 19167726.64423905,
+   "quote": {
+    "USD": {
+     "price": 54.801985010578065,
+     "volume_24h": 63120907.15906936,
+     "volume_change_24h": -9.6573,
+     "percent_change_1h": -1.01785331,
+     "percent_change_24h": 0.02257263,
+     "percent_change_7d": 2.72340135,
+     "percent_change_30d": -14.05782229,
+     "percent_change_60d": 6.3808984,
+     "percent_change_90d": 3.25190785,
+     "market_cap": 1050429468.2444462,
+     "market_cap_dominance": 0.0982,
+     "fully_diluted_market_cap": 1150841685.22,
+     "last_updated": "2022-09-12T15:22:00Z"
+    }
+   }
+  },
+  {
+   "id": 1437,
+   "name": "Zcash",
+   "symbol": "ZEC",
+   "slug": "zcash",
+   "num_market_pairs": 267,
+   "date_added": "2016-10-29T00:00:00Z",
+   "max_supply": 21000000,
+   "circulating_supply": 15248281.25,
+   "total_supply": 15248281.25,
+   "quote": {
+    "USD": {
+     "price": 64.89023647360636,
+     "volume_24h": 76044529.34468229,
+     "volume_change_24h": 23.223,
+     "percent_change_1h": -0.53306366,
+     "percent_change_24h": 0.16124104,
+     "percent_change_7d": 1.78314707,
+     "percent_change_30d": -15.31117093,
+     "percent_change_60d": 19.5224027,
+     "percent_change_90d": 0.4196007,
+     "market_cap": 989464576.128558,
+     "market_cap_dominance": 0.0925,
+     "fully_diluted_market_cap": 1362694965.95,
+     "last_updated": "2022-09-12T15:22:00Z"
     }
    }
   }

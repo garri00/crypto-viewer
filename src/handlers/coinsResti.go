@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"crypto-viewer/src/config"
 	"encoding/json"
 	"fmt"
 	"github.com/go-resty/resty/v2"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -22,7 +22,7 @@ func CoinsResty(w http.ResponseWriter, r *http.Request) {
 			"limit": r.URL.Query().Get("limit"),
 		}).
 		SetHeader("Accepts", "application/json").
-		SetHeader("X-CMC_PRO_API_KEY", config.TokenAPI).
+		SetHeader("X-CMC_PRO_API_KEY", os.Getenv("CoinMarCapToken")).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
 	if err != nil {
