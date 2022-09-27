@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-resty/resty/v2"
 	"net/http"
 )
 
@@ -16,8 +17,10 @@ func main() {
 		w.Write([]byte("welcome"))
 	})
 
+	restyClient := resty.New()
+
 	r.Get("/home", handlers.HomeHandler)
-	r.Get("/coins", handlers.CoinsResty)
+	r.Get("/coins", handlers.RestyClientStruct{RestyClientAddress: restyClient}.CoinsResty)
 
 	http.ListenAndServe(":8080", r)
 	fmt.Println("server STOP")
