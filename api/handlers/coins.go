@@ -11,11 +11,15 @@ import (
 	"net/http"
 )
 
-type RestyClientStruct struct {
+type RestyClient struct {
 	RestyClientAddress *resty.Client
 }
 
-func (c RestyClientStruct) CoinsResty(w http.ResponseWriter, r *http.Request) {
+func NewRestyClient(resty *resty.Client) RestyClient {
+	return RestyClient{RestyClientAddress: resty}
+}
+
+func (c RestyClient) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	restyClient := c.RestyClientAddress
 
@@ -59,7 +63,7 @@ func (c RestyClientStruct) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var okResponse = entities.Coins{}
+	var okResponse = entities.Data{}
 	if err := json.Unmarshal(resp.Body(), &okResponse); err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)

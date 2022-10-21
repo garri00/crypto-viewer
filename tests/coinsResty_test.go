@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"crypto-viewer/src/handlers"
+	"crypto-viewer/api/handlers"
 	"github.com/go-resty/resty/v2"
 	"net/http"
 	"net/http/httptest"
