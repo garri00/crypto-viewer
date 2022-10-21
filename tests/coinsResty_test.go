@@ -1,45 +1,62 @@
 package tests
 
 import (
-	"crypto-viewer/src/entities"
 	"crypto-viewer/src/handlers"
-	"encoding/json"
 	"github.com/go-resty/resty/v2"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 )
 
 func Test_CoinsRestyHandler(t *testing.T) {
+	//server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	//	// повертаємо дані
+	//	w.WriteHeader(http.StatusOK)
+	//	w.Write([]byte(`{"data":{"id":"bitcoin","symbol":"BTC","currencySymbol":"₿","type":"crypto","rateUsd":"4010.8714336221081818"},"timestamp":1552990697033}`))
+	//	return
+	//}))
 
-	jsonFile, err := os.Open("coinslist_test.json")
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	var okResponse = entities.Coins{}
-	if err := json.Unmarshal(byteValue, &okResponse); err != nil {
-		return
-	}
+	//restyClient := resty.New()
+	//resources := handlers.RestyClientStruct{RestyClientAddress: restyClient}
+
+	//resources.CoinsResty()
+
+	//if err != nil {
+	//	t.Error(err)
+	//}
+	////
+	//if result == 0 {
+	//	t.Fail()
+	//}
+	//expected := "dummy data"
+	//svr := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	//	w.WriteHeader(http.StatusOK)
+	//	fmt.Fprintf(w, expected)
+	//}))
+	//defer svr.Close()
+	//c := NewClient(svr.URL)
+	//
+	//if err != nil {
+	//	t.Errorf("expected err to be nil got %v", err)
+	//}
+	//// res: expected\r\n
+	//// due to the http protocol cleanup response
+	//res = strings.TrimSpace(res)
+	//if res != expected {
+	//	t.Errorf("expected res to be %s got %s", expected, res)
+	//}
+
+	req := httptest.NewRequest(http.MethodGet, "/coins?start=1&limit=3", nil)
+	w := httptest.NewRecorder()
 
 	restyClient := resty.New()
+	c := handlers.NewRestyClient(restyClient)
+	c.CoinsResty(w, req)
 
-	req, err := http.NewRequest("GET", "https://bd4368da-9638-40bb-b897-2f6ff47d191b.mock.pstmn.io/coins?start=1&limit=3", nil)
-	if err != nil {
-		t.Fatal(err)
+	res := w.Result()
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		t.Errorf("Status code not 200")
 	}
-	rr := httptest.NewRecorder()
-
-	handler := http.HandlerFunc(handlers.RestyClientStruct{RestyClientAddress: restyClient}.CoinsResty)
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
-
-	//expected := okResponse
-	//if rr.Body.String() != byteValue {
-	//	t.Errorf("handler returned unexpected body: got %v want %v",
-	//		rr.Body.String(), expected)
-	//}
 }
