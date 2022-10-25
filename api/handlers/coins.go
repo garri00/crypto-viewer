@@ -79,8 +79,10 @@ func (c RestyClient) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
-	fmt.Println(resp.Status)
-	w.WriteHeader(http.StatusOK)
+	//fmt.Println(resp.Status)
 
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	w.Write(file)
+
 }
