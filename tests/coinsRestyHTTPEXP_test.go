@@ -1,17 +1,16 @@
 package tests
 
 import (
+	"crypto-viewer/api"
+	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
+	"github.com/gavv/httpexpect/v2"
 	"github.com/jarcoal/httpmock"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"testing"
-
-	"crypto-viewer/api"
-	"crypto-viewer/src/entities"
-	"github.com/gavv/httpexpect/v2"
 )
 
 func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
@@ -41,110 +40,131 @@ func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 		},
 	})
 
-	//
+	// Тут я намагаюся мокнути та змінити транспорт на роутер але він починає використовувати транспорт з httpmock і ендпоінти не відпрацьовують
+	httpmock.ActivateNonDefault(httpClient)
+	defer httpmock.DeactivateAndReset()
+	//httpmock.InitialTransport = httpClient.Transport
+	httpmock.RegisterResponder("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=3&start=1", httpmock.NewStringResponder(200, j))
 
+	//
+	////httpmock.RegisterResponder("Get","/",)
+	//
+	//httpmock.RegisterResponder(
+	//	"GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+	//	httpmock.NewStringResponder(200, j))
+
+	//httpmock.Reset()
 	// is it working?
+
+	//ContentType("application", "json")
+
 	e.GET("/coins").
 		WithQuery("start", "1").
 		WithQuery("limit", "3").
-		Expect().Status(http.StatusOK)
+		Expect().
+		Status(http.StatusOK).JSON()
 
 	e.GET("").
 		Expect().
 		Status(http.StatusOK)
 
-	httpmock.ActivateNonDefault(httpClient)
-	defer httpmock.DeactivateAndReset()
-
-	httpmock.RegisterResponder("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest", httpmock.NewStringResponder(200, j))
-
 }
 
 const j = `{
- "data": [
-  {
-   "id": 1,
-   "name": "Bitcoin",
-   "symbol": "BTC",
-   "slug": "bitcoin",
-   "num_market_pairs": 0001,
-   "date_added": "2013-04-28T00:00:00Z",
-   "max_supply": 21000000,
-   "circulating_supply": 19169075,
-   "total_supply": 19169075,
-   "quote": {
-    "USD": {
-     "price": 20000.26633700906,
-     "volume_24h": 34057182267.847286,
-     "volume_change_24h": 16.555,
-     "percent_change_1h": -0.47666159,
-     "percent_change_24h": 2.94124922,
-     "percent_change_7d": 4.93977254,
-     "percent_change_30d": 0.4471352,
-     "percent_change_60d": -13.10799526,
-     "percent_change_90d": -1.56798353,
-     "market_cap": 383386605434.1019,
-     "market_cap_dominance": 39.9464,
-     "fully_diluted_market_cap": 420005593077.19,
-     "last_updated": "2022-10-04T17:04:00Z"
-    }
-   }
-  },
-  {
-   "id": 1027,
-   "name": "Ethereum",
-   "symbol": "ETH",
-   "slug": "ethereum",
-   "num_market_pairs": 6121,
-   "date_added": "2015-08-07T00:00:00Z",
-   "max_supply": null,
-   "circulating_supply": 122650819.499,
-   "total_supply": 122650819.499,
-   "quote": {
-    "USD": {
-     "price": 1347.8692249214917,
-     "volume_24h": 9870895591.756325,
-     "volume_change_24h": -4.808,
-     "percent_change_1h": -0.43006632,
-     "percent_change_24h": 2.05465002,
-     "percent_change_7d": 1.66856006,
-     "percent_change_30d": -14.088573,
-     "percent_change_60d": -19.35345636,
-     "percent_change_90d": 17.74305407,
-     "market_cap": 165317265014.1029,
-     "market_cap_dominance": 17.225,
-     "fully_diluted_market_cap": 165317265014.1,
-     "last_updated": "2022-10-04T17:04:00Z"
-    }
-   }
-  },
-  {
-   "id": 825,
-   "name": "Tether",
-   "symbol": "USDT",
-   "slug": "tether",
-   "num_market_pairs": 40475,
-   "date_added": "2015-02-25T00:00:00Z",
-   "max_supply": null,
-   "circulating_supply": 67949574445.85782,
-   "total_supply": 70155449906.09836,
-   "quote": {
-    "USD": {
-     "price": 1.000221198547823,
-     "volume_24h": 42644483506.99466,
-     "volume_change_24h": 8.6216,
-     "percent_change_1h": 0.000744,
-     "percent_change_24h": 0.01765955,
-     "percent_change_7d": 0.019885,
-     "percent_change_30d": 0.01800994,
-     "percent_change_60d": 0.01539732,
-     "percent_change_90d": 0.10456315,
-     "market_cap": 67964604793.05044,
-     "market_cap_dominance": 7.0813,
-     "fully_diluted_market_cap": 70170968189.74,
-     "last_updated": "2022-10-04T17:04:00Z"
-    }
-   }
-  }
- ]
+"data": [
+{
+"id": 1,
+"name": "BBBB",
+"symbol": "BTC",
+"slug": "bitcoin",
+"cmc_rank": 5,
+"num_market_pairs": 500,
+"circulating_supply": 16950100,
+"total_supply": 16950100,
+"max_supply": 21000000,
+"last_updated": "2018-06-02T22:51:28.209Z",
+"date_added": "2013-04-28T00:00:00.000Z",
+"tags": [
+"mineable"
+],
+"platform": null,
+"self_reported_circulating_supply": null,
+"self_reported_market_cap": null,
+"quote": {
+"USD": {
+"price": 9283.92,
+"volume_24h": 7155680000,
+"volume_change_24h": -0.152774,
+"percent_change_1h": -0.152774,
+"percent_change_24h": 0.518894,
+"percent_change_7d": 0.986573,
+"market_cap": 852164659250.2758,
+"market_cap_dominance": 51,
+"fully_diluted_market_cap": 952835089431.14,
+"last_updated": "2018-08-09T22:53:32.000Z"
+},
+"BTC": {
+"price": 1,
+"volume_24h": 772012,
+"volume_change_24h": 0,
+"percent_change_1h": 0,
+"percent_change_24h": 0,
+"percent_change_7d": 0,
+"market_cap": 17024600,
+"market_cap_dominance": 12,
+"fully_diluted_market_cap": 952835089431.14,
+"last_updated": "2018-08-09T22:53:32.000Z"
+}
+}
+},
+{
+"id": 1027,
+"name": "Ethereum",
+"symbol": "ETH",
+"slug": "ethereum",
+"num_market_pairs": 6360,
+"circulating_supply": 16950100,
+"total_supply": 16950100,
+"max_supply": 21000000,
+"last_updated": "2018-06-02T22:51:28.209Z",
+"date_added": "2013-04-28T00:00:00.000Z",
+"tags": [
+"mineable"
+],
+"platform": null,
+"quote": {
+"USD": {
+"price": 1283.92,
+"volume_24h": 7155680000,
+"volume_change_24h": -0.152774,
+"percent_change_1h": -0.152774,
+"percent_change_24h": 0.518894,
+"percent_change_7d": 0.986573,
+"market_cap": 158055024432,
+"market_cap_dominance": 51,
+"fully_diluted_market_cap": 952835089431.14,
+"last_updated": "2018-08-09T22:53:32.000Z"
+},
+"ETH": {
+"price": 1,
+"volume_24h": 772012,
+"volume_change_24h": -0.152774,
+"percent_change_1h": 0,
+"percent_change_24h": 0,
+"percent_change_7d": 0,
+"market_cap": 17024600,
+"market_cap_dominance": 12,
+"fully_diluted_market_cap": 952835089431.14,
+"last_updated": "2018-08-09T22:53:32.000Z"
+}
+}
+}
+],
+"status": {
+"timestamp": "2018-06-02T22:51:28.209Z",
+"error_code": 0,
+"error_message": "",
+"elapsed": 10,
+"credit_count": 1
+}
 }`
