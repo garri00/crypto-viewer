@@ -17,8 +17,8 @@ func NewRouter() *chi.Mux {
 		w.WriteHeader(http.StatusOK)
 	})
 
-	restyClient := resty.New()
-	c := handlers.NewRestyClient(restyClient)
+	RestyClient := resty.New()
+	c := handlers.NewRestyClient(RestyClient)
 
 	r.Get("/home", handlers.HomeHandler)
 	r.Get("/coins", c.CoinsResty)

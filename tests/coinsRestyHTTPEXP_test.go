@@ -24,8 +24,6 @@ func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &okResponse)
 
-	// run server using httptest
-
 	router := api.NewRouter()
 	httpClient := &http.Client{
 		Transport: httpexpect.NewBinder(router),
@@ -40,11 +38,16 @@ func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 		},
 	})
 
+	//	var handler fasthttp.Client = httpClient
+
 	// Тут я намагаюся мокнути та змінити транспорт на роутер але він починає використовувати транспорт з httpmock і ендпоінти не відпрацьовують
 	httpmock.ActivateNonDefault(httpClient)
+	//httpmock.Activate()
+
 	defer httpmock.DeactivateAndReset()
 	//httpmock.InitialTransport = httpClient.Transport
-	httpmock.RegisterResponder("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=3&start=1", httpmock.NewStringResponder(200, j))
+	responder := httpmock.NewStringResponder(200, j)
+	httpmock.RegisterResponder("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=3&start=1", responder)
 
 	//
 	////httpmock.RegisterResponder("Get","/",)
@@ -57,6 +60,10 @@ func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 	// is it working?
 
 	//ContentType("application", "json")
+
+	//server := httptest.NewServer(router)
+	//defer server.Close()
+	//e := httpexpect.New(t, server.URL)
 
 	e.GET("/coins").
 		WithQuery("start", "1").
