@@ -43,12 +43,7 @@ func (c RestyClient) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(resp.Request.URL)
 
 	if resp.StatusCode() != http.StatusOK {
-		var errResponse struct {
-			Status struct {
-				ErrorCode    int    `json:"error_code"`
-				ErrorMessage string `json:"error_message"`
-			} `json:"status"`
-		}
+		var errResponse = entities.Status{}
 
 		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
 			log.Print(err)
@@ -63,7 +58,7 @@ func (c RestyClient) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var okResponse = entities.Data{}
+	var okResponse = entities.CoinsData{}
 	if err := json.Unmarshal(resp.Body(), &okResponse); err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)

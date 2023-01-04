@@ -15,7 +15,7 @@ import (
 
 func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 
-	var okResponse = entities.Data{}
+	var okResponse = entities.CoinsData{}
 	jsonFile, err := os.Open("coinslist_test.json")
 	if err != nil {
 		fmt.Println(err)

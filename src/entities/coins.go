@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type Data struct {
+type CoinsData struct {
 	Coins []struct {
 		Id                int       `json:"id"`
 		Name              string    `json:"name"`
