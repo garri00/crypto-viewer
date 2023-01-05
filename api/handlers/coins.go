@@ -1,22 +1,22 @@
 package handlers
 
 import (
-	"crypto-viewer/src/config"
-	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
-	"github.com/go-resty/resty/v2"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"crypto-viewer/src/config"
+	"crypto-viewer/src/entities"
 )
 
 type RestyClient struct {
-	RestyClientAddress *resty.Client
+	Usecase CoinsRestyUseCase
 }
 
-func NewRestyClient(resty *resty.Client) RestyClient {
-	return RestyClient{RestyClientAddress: resty}
+func NewRestyClient(usecase CoinsRestyUseCase) RestyClient {
+	return RestyClient{Usecase: usecase}
 }
 
 func (c RestyClient) CoinsResty(w http.ResponseWriter, r *http.Request) {

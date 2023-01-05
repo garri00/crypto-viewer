@@ -1,31 +1,28 @@
 package adapters
 
 import (
-	"crypto-viewer/src/config"
-	"github.com/go-resty/resty/v2"
 	"log"
 	"net/http"
+
+	"github.com/go-resty/resty/v2"
+
+	"crypto-viewer/src/config"
 )
 
-type CoinsRestyAdapter interface {
-	GetCoins() (http.Response, error)
+func NewCoins(r *resty.Client) Coins {
+	return Coins{
+		RestyClientAddress: r,
+	}
 }
 
 type Coins struct {
-	coinsA             CoinsRestyAdapter
 	RestyClientAddress *resty.Client
 }
 
-func (c Coins) GetCoins() (http.Response, error) {
-
-	restyClient := c.RestyClientAddress
-
-	resp, err := restyClient.R().
+func (c Coins) GetCoins(p params) (http.Response, error) {
+	resp, err := c.RestyClientAddress.R().
 		EnableTrace().
-		SetQueryParams(map[string]string{
-			"start": "1",
-			"limit": "500",
-		}).
+		SetQueryParams(p).
 		SetHeader("Accepts", "application/json").
 		SetHeader("X-CMC_PRO_API_KEY", config.TokenAPI).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
@@ -38,5 +35,4 @@ func (c Coins) GetCoins() (http.Response, error) {
 		return http.Response{StatusCode: http.StatusInternalServerError}, err
 	}
 	return coins, nil
-
 }
