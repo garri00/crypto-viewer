@@ -1,34 +1,32 @@
 package usecases
 
 import (
-	"net/http"
-
 	"crypto-viewer/src/entities"
+	"log"
 )
 
 type CoinsRestyAdapter interface {
-	GetCoins() (http.Response, error)
+	GetCoinsA(map[string]string) (entities.CoinsData, error)
 }
 
-func NewCoins(adapter CoinsRestyAdapter) Coins {
-	return Coins{
+func NewCoins(adapter CoinsRestyAdapter) CoinsUC {
+	return CoinsUC{
 		coinsA: adapter,
 	}
 }
 
-type Coins struct {
+type CoinsUC struct {
 	coinsA CoinsRestyAdapter
 }
 
-func (c Coins) GetCoins(p params) (entities.CoinsData, error) {
-	p := map[string]string{
-		"start": "1",
-		"limit": "500",
+func (c CoinsUC) GetCoinsUC(params map[string]string) (entities.CoinsData, error) {
+
+	coinsData, err := c.coinsA.GetCoinsA(params)
+	if err != nil {
+		log.Print(err)
+		return coinsData, err
 	}
-
-	coins, err := c.coinsA.GetCoins(p)
-
-	return coins, nil
+	return coinsData, nil
 }
 
-http request -> handler -> usecase -> adapter -> usecase -> handler -> hhtp response
+//http request -> handler -> usecase -> adapter -> usecase -> handler -> hhtp response

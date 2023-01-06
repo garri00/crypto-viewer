@@ -1,6 +1,10 @@
 package adapters
 
 import (
+	"crypto-viewer/src/entities"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -9,7 +13,7 @@ import (
 	"crypto-viewer/src/config"
 )
 
-func NewCoins(r *resty.Client) Coins {
+func NewCoinsAdapter(r *resty.Client) Coins {
 	return Coins{
 		RestyClientAddress: r,
 	}
@@ -19,20 +23,49 @@ type Coins struct {
 	RestyClientAddress *resty.Client
 }
 
-func (c Coins) GetCoins(p params) (http.Response, error) {
+func (c Coins) GetCoinsA(params map[string]string) (entities.CoinsData, error) {
+
+	//Make call to CMC API
 	resp, err := c.RestyClientAddress.R().
 		EnableTrace().
-		SetQueryParams(p).
+		SetQueryParams(params).
 		SetHeader("Accepts", "application/json").
 		SetHeader("X-CMC_PRO_API_KEY", config.TokenAPI).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
-	coins := *resp.RawResponse
-	//fmt.Println(resp.Request.URL)
-
+	fmt.Println(resp.Request.URL)
+	//Check if request is OK
+	var coinsData = entities.CoinsData{}
 	if err != nil {
 		log.Print(err)
-		return http.Response{StatusCode: http.StatusInternalServerError}, err
+		return coinsData, err
 	}
-	return coins, nil
+	//Check response code from CMC API
+	var errResponse = entities.Status{}
+	if resp.StatusCode() != http.StatusOK {
+		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
+			log.Print(err)
+			log.Print("failed to unmarshal errResponse")
+			return coinsData, err
+		}
+		log.Printf("Code=%d, Message=%s", errResponse.Status.ErrorCode, errResponse.Status.ErrorMessage)
+		return coinsData, err
+	}
+
+	if err := json.Unmarshal(resp.Body(), &coinsData); err != nil {
+		log.Print(err)
+		log.Print("failed to unmarshal coinsData")
+		return coinsData, err
+	}
+
+	//Write coinsData to file
+	file, err := json.MarshalIndent(coinsData, "", " ")
+	if err != nil {
+		log.Print(err)
+		log.Print("failed to unmarshal coinsData")
+		return coinsData, err
+	}
+	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
+
+	return coinsData, nil
 }
