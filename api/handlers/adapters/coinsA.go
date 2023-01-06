@@ -4,7 +4,6 @@ import (
 	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -13,17 +12,17 @@ import (
 	"crypto-viewer/src/config"
 )
 
-func NewCoinsAdapter(r *resty.Client) Coins {
-	return Coins{
+func NewCoinsAdapter(r *resty.Client) CoinsAdapter {
+	return CoinsAdapter{
 		RestyClientAddress: r,
 	}
 }
 
-type Coins struct {
+type CoinsAdapter struct {
 	RestyClientAddress *resty.Client
 }
 
-func (c Coins) GetCoinsA(params map[string]string) (entities.CoinsData, error) {
+func (c CoinsAdapter) GetCoinsA(params map[string]string) (entities.CoinsData, error) {
 
 	//Make call to CMC API
 	resp, err := c.RestyClientAddress.R().
@@ -57,15 +56,6 @@ func (c Coins) GetCoinsA(params map[string]string) (entities.CoinsData, error) {
 		log.Print("failed to unmarshal coinsData")
 		return coinsData, err
 	}
-
-	//Write coinsData to file
-	file, err := json.MarshalIndent(coinsData, "", " ")
-	if err != nil {
-		log.Print(err)
-		log.Print("failed to unmarshal coinsData")
-		return coinsData, err
-	}
-	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
 
 	return coinsData, nil
 }

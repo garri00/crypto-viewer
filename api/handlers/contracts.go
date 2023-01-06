@@ -3,9 +3,19 @@ package handlers
 // CoinsUsecase represent Coins use-case layer
 //
 //type CoinsUsecase interface {
-//	GetCoins(r *http.Request) error
+//	GetCoinsUC(r *http.Request) error
+//}
+////////////////
+//type CoinsHendlerContract struct {
+//	coinsUC usecases.CoinsUsecase
 //}
 //
-//type CoinsRestyUseCase interface {
-//	GetCoinsUC(map[string]string) (w http.ResponseWriter, r *http.Request)
+//func NewCoinsHendler(usecase usecases.CoinsUsecase) CoinsHendlerContract {
+//	return CoinsHendlerContract{
+//		coinsUC : usecase,
+//	}
+//}
+//
+//type CoinsHendlerH interface {
+//	CoinsRestyHendler(handler http.Handler)
 //}

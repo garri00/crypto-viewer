@@ -22,8 +22,8 @@ func NewRouter() *chi.Mux {
 	})
 
 	adapter := adapters.NewCoinsAdapter(resty.New())
-	usecase := usecases.NewCoins(adapter)
-	c := handlers.NewRestyClient(usecase)
+	usecase := usecases.NewCoinsUC(adapter)
+	c := handlers.CoinsHendler(usecase)
 
 	r.Get("/home", handlers.HomeHandler)
 	r.Get("/coins", c.CoinsResty)

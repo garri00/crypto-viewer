@@ -11,12 +11,24 @@ import (
 )
 
 type CoinsHandler struct {
-	Usecase usecases.CoinsUC
+	Usecase usecases.CoinsUsecase
 }
 
-func NewRestyClient(usecase usecases.CoinsUC) CoinsHandler {
+func CoinsHendler(usecase usecases.CoinsUsecase) CoinsHandler {
 	return CoinsHandler{Usecase: usecase}
 }
+
+//func (ch CoinsHendlerContract) CoinsHendlerH()http.Handler{
+//	return http.HandlerFunc(func(writer http.ResponseWriter, r *http.Request) {
+//		queryParams := map[string]string{
+//			"start": r.URL.Query().Get("start"),
+//			"limit": r.URL.Query().Get("limit"),
+//		}
+//
+//
+//		resp, err := c.Usecase.GetCoinsUC(queryParams)
+//	})
+//}
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
