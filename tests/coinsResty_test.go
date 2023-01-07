@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_CoinsRestyHandler(t *testing.T) {
+func Test_CoinsRestyHandlerr(t *testing.T) {
 	//server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	//	// повертаємо дані
 	//	w.WriteHeader(http.StatusOK)

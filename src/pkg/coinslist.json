@@ -8,23 +8,23 @@
    "num_market_pairs": 9922,
    "date_added": "2013-04-28T00:00:00Z",
    "max_supply": 21000000,
-   "circulating_supply": 19254050,
-   "total_supply": 19254050,
+   "circulating_supply": 19255318,
+   "total_supply": 19255318,
    "quote": {
-    "USD": {
-     "price": 16740.42871798607,
-     "volume_24h": 14946358069.226912,
-     "volume_change_24h": -5.8433,
-     "percent_change_1h": -0.23958841,
-     "percent_change_24h": -0.34517277,
-     "percent_change_7d": 1.51646785,
-     "percent_change_30d": -0.69743558,
-     "percent_change_60d": -19.19721986,
-     "percent_change_90d": -14.09371289,
-     "market_cap": 322321051557.5397,
-     "market_cap_dominance": 39.6047,
-     "fully_diluted_market_cap": 351549003077.71,
-     "last_updated": "2023-01-06T14:46:00Z"
+    "UAH": {
+     "price": 0,
+     "volume_24h": 0,
+     "volume_change_24h": 0,
+     "percent_change_1h": 0,
+     "percent_change_24h": 0,
+     "percent_change_7d": 0,
+     "percent_change_30d": 0,
+     "percent_change_60d": 0,
+     "percent_change_90d": 0,
+     "market_cap": 0,
+     "market_cap_dominance": 0,
+     "fully_diluted_market_cap": 0,
+     "last_updated": "0001-01-01T00:00:00Z"
     }
    }
   },
@@ -39,20 +39,20 @@
    "circulating_supply": 122373866.2178,
    "total_supply": 122373866.2178,
    "quote": {
-    "USD": {
-     "price": 1247.4011900883672,
-     "volume_24h": 4066855548.023524,
-     "volume_change_24h": -20.7318,
-     "percent_change_1h": 0.03888985,
-     "percent_change_24h": 0.12601018,
-     "percent_change_7d": 4.65890647,
-     "percent_change_30d": 0.97683765,
-     "percent_change_60d": -20.88286101,
-     "percent_change_90d": -5.81835703,
-     "market_cap": 152649306355.79837,
-     "market_cap_dominance": 18.7601,
-     "fully_diluted_market_cap": 152649306355.8,
-     "last_updated": "2023-01-06T14:46:00Z"
+    "UAH": {
+     "price": 0,
+     "volume_24h": 0,
+     "volume_change_24h": 0,
+     "percent_change_1h": 0,
+     "percent_change_24h": 0,
+     "percent_change_7d": 0,
+     "percent_change_30d": 0,
+     "percent_change_60d": 0,
+     "percent_change_90d": 0,
+     "market_cap": 0,
+     "market_cap_dominance": 0,
+     "fully_diluted_market_cap": 0,
+     "last_updated": "0001-01-01T00:00:00Z"
     }
    }
   },
@@ -61,26 +61,54 @@
    "name": "Tether",
    "symbol": "USDT",
    "slug": "tether",
-   "num_market_pairs": 45834,
+   "num_market_pairs": 45859,
    "date_added": "2015-02-25T00:00:00Z",
    "max_supply": null,
-   "circulating_supply": 66272490385.72939,
+   "circulating_supply": 66272490385.29659,
    "total_supply": 73141766321.23428,
    "quote": {
-    "USD": {
-     "price": 0.999707688408831,
-     "volume_24h": 20322042360.845943,
-     "volume_change_24h": -6.9477,
-     "percent_change_1h": 0.00484238,
-     "percent_change_24h": -0.01027586,
-     "percent_change_7d": 0.00362097,
-     "percent_change_30d": -0.03786418,
-     "percent_change_60d": -0.03823566,
-     "percent_change_90d": -0.04018957,
-     "market_cap": 66253118168.614006,
-     "market_cap_dominance": 8.1423,
-     "fully_diluted_market_cap": 73120386135.14,
-     "last_updated": "2023-01-06T14:46:00Z"
+    "UAH": {
+     "price": 0,
+     "volume_24h": 0,
+     "volume_change_24h": 0,
+     "percent_change_1h": 0,
+     "percent_change_24h": 0,
+     "percent_change_7d": 0,
+     "percent_change_30d": 0,
+     "percent_change_60d": 0,
+     "percent_change_90d": 0,
+     "market_cap": 0,
+     "market_cap_dominance": 0,
+     "fully_diluted_market_cap": 0,
+     "last_updated": "0001-01-01T00:00:00Z"
+    }
+   }
+  },
+  {
+   "id": 3408,
+   "name": "USD Coin",
+   "symbol": "USDC",
+   "slug": "usd-coin",
+   "num_market_pairs": 9433,
+   "date_added": "2018-10-08T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 43776307316.92825,
+   "total_supply": 43776307316.92825,
+   "quote": {
+    "UAH": {
+     "price": 0,
+     "volume_24h": 0,
+     "volume_change_24h": 0,
+     "percent_change_1h": 0,
+     "percent_change_24h": 0,
+     "percent_change_7d": 0,
+     "percent_change_30d": 0,
+     "percent_change_60d": 0,
+     "percent_change_90d": 0,
+     "market_cap": 0,
+     "market_cap_dominance": 0,
+     "fully_diluted_market_cap": 0,
+     "last_updated": "0001-01-01T00:00:00Z"
     }
    }
   }

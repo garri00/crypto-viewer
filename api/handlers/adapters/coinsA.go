@@ -4,6 +4,7 @@ import (
 	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -29,7 +30,7 @@ func (c CoinsAdapter) GetCoinsA(params map[string]string) (entities.CoinsData, e
 		EnableTrace().
 		SetQueryParams(params).
 		SetHeader("Accepts", "application/json").
-		SetHeader("X-CMC_PRO_API_KEY", config.TokenAPI).
+		SetHeader("X-CMC_PRO_API_KEY", config.GetConfigTokenAPI()).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
 	fmt.Println(resp.Request.URL)
@@ -56,6 +57,15 @@ func (c CoinsAdapter) GetCoinsA(params map[string]string) (entities.CoinsData, e
 		log.Print("failed to unmarshal coinsData")
 		return coinsData, err
 	}
+
+	//Write coinsData to file
+	file, err := json.MarshalIndent(coinsData, "", " ")
+	if err != nil {
+		log.Print(err)
+		log.Print("failed to unmarshal coinsData")
+		return coinsData, err
+	}
+	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
 
 	return coinsData, nil
 }

@@ -67,7 +67,7 @@ func Test_CoinsRestyHandlerHTTPEXP(t *testing.T) {
 
 	e.GET("/coins").
 		WithQuery("start", "1").
-		WithQuery("limit", "3").
+		WithQuery("limit", "4").
 		Expect().
 		Status(http.StatusOK).JSON()
 
