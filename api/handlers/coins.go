@@ -18,17 +18,9 @@ func CoinsHendler(usecase usecases.CoinsUsecase) CoinsHandler {
 	return CoinsHandler{Usecase: usecase}
 }
 
-//func (ch CoinsHendlerContract) CoinsHendlerH()http.Handler{
-//	return http.HandlerFunc(func(writer http.ResponseWriter, r *http.Request) {
-//		queryParams := map[string]string{
-//			"start": r.URL.Query().Get("start"),
-//			"limit": r.URL.Query().Get("limit"),
-//		}
-//
-//
-//		resp, err := c.Usecase.GetCoinsUC(queryParams)
-//	})
-//}
+type CoinsHandlerr struct {
+	CoinsContract CoinsHendlerH
+}
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
