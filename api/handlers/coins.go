@@ -1,25 +1,30 @@
 package handlers
 
 import (
-	"crypto-viewer/api/handlers/usecases"
-	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
 
 	"crypto-viewer/src/entities"
 )
 
+type CoinsUseCase interface {
+	GetCoins(params map[string]string) (entities.CoinsData, error)
+}
+
+type SaveDataUseCase interface {
+	SaveCoins(coinsData entities.CoinsData) ([]byte, error)
+}
+
 type CoinsHandler struct {
-	Usecase usecases.CoinsUsecase
+	coinsUseCase    CoinsUseCase
+	saveDataUseCase SaveDataUseCase
 }
 
-func CoinsHendler(usecase usecases.CoinsUsecase) CoinsHandler {
-	return CoinsHandler{Usecase: usecase}
-}
-
-type CoinsHandlerr struct {
-	CoinsContract CoinsHendlerH
+func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase) CoinsHandler {
+	return CoinsHandler{
+		coinsUseCase:    coinsUseCase,
+		saveDataUseCase: saveDataUseCase,
+	}
 }
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
@@ -29,26 +34,22 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		"limit": r.URL.Query().Get("limit"),
 	}
 
-	resp, err := c.Usecase.GetCoinsUC(queryParams)
+	resp, err := c.coinsUseCase.GetCoins(queryParams)
 
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("failed to create GET request"))
+		w.Write([]byte("failed to create GET coins"))
 		return
 	}
 
-	var coinsData = entities.CoinsData{}
-	coinsData = resp
-
-	file, err := json.MarshalIndent(coinsData, "", " ")
+	file, err := c.saveDataUseCase.SaveCoins(resp)
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("failed to marshal coinsData"))
+		w.Write([]byte("failed to save coins"))
 		return
 	}
-	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

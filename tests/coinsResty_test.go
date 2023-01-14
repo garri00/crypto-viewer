@@ -13,7 +13,7 @@ func Test_CoinsRestyHandlerr(t *testing.T) {
 	//}))
 
 	//restyClient := resty.New()
-	//resources := handlers.RestyClientStruct{RestyClientAddress: restyClient}
+	//resources := handlers.RestyClientStruct{restyClient: restyClient}
 
 	//resources.CoinsResty()
 

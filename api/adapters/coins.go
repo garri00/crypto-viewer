@@ -4,7 +4,6 @@ import (
 	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -13,20 +12,20 @@ import (
 	"crypto-viewer/src/config"
 )
 
-func NewCoinsAdapter(r *resty.Client) CoinsAdapter {
+func NewCoins(r *resty.Client) CoinsAdapter {
 	return CoinsAdapter{
-		RestyClientAddress: r,
+		restyClient: r,
 	}
 }
 
 type CoinsAdapter struct {
-	RestyClientAddress *resty.Client
+	restyClient *resty.Client
 }
 
-func (c CoinsAdapter) GetCoinsA(params map[string]string) (entities.CoinsData, error) {
+func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, error) {
 
 	//Make call to CMC API
-	resp, err := c.RestyClientAddress.R().
+	resp, err := c.restyClient.R().
 		EnableTrace().
 		SetQueryParams(params).
 		SetHeader("Accepts", "application/json").
@@ -34,38 +33,32 @@ func (c CoinsAdapter) GetCoinsA(params map[string]string) (entities.CoinsData, e
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
 	fmt.Println(resp.Request.URL)
+
 	//Check if request is OK
-	var coinsData = entities.CoinsData{}
 	if err != nil {
 		log.Print(err)
-		return coinsData, err
+		return entities.CoinsData{}, err
 	}
+
 	//Check response code from CMC API
-	var errResponse = entities.Status{}
 	if resp.StatusCode() != http.StatusOK {
+		errResponse := entities.Status{}
 		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
 			log.Print(err)
 			log.Print("failed to unmarshal errResponse")
-			return coinsData, err
+			return entities.CoinsData{}, err
 		}
-		log.Printf("Code=%d, Message=%s", errResponse.Status.ErrorCode, errResponse.Status.ErrorMessage)
-		return coinsData, err
+		err := fmt.Errorf("Code=%d, Message=%s", errResponse.Status.ErrorCode, errResponse.Status.ErrorMessage)
+		log.Print(err)
+		return entities.CoinsData{}, err
 	}
 
+	var coinsData = entities.CoinsData{}
 	if err := json.Unmarshal(resp.Body(), &coinsData); err != nil {
 		log.Print(err)
 		log.Print("failed to unmarshal coinsData")
-		return coinsData, err
+		return entities.CoinsData{}, err
 	}
-
-	//Write coinsData to file
-	file, err := json.MarshalIndent(coinsData, "", " ")
-	if err != nil {
-		log.Print(err)
-		log.Print("failed to unmarshal coinsData")
-		return coinsData, err
-	}
-	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
 
 	return coinsData, nil
 }

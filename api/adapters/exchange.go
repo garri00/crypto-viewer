@@ -4,14 +4,24 @@ import (
 	"crypto-viewer/src/config"
 	"crypto-viewer/src/entities"
 	"encoding/json"
-	"fmt"
+	"errors"
+	"github.com/go-resty/resty/v2"
 	"log"
 )
 
-func (c CoinsAdapter) GetExchangeRateA() (entities.ExchangeRate, error) {
+func NewExchange(r *resty.Client) ExchangeAdapter {
+	return ExchangeAdapter{
+		restyClient: r,
+	}
+}
 
-	exchangeRate := entities.ExchangeRate{}
-	resp, err := c.RestyClientAddress.R().
+type ExchangeAdapter struct {
+	restyClient *resty.Client
+}
+
+func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
+
+	resp, err := c.restyClient.R().
 		SetQueryParams(map[string]string{
 			"source":     "USD",
 			"currencies": "UAH",
@@ -22,21 +32,21 @@ func (c CoinsAdapter) GetExchangeRateA() (entities.ExchangeRate, error) {
 
 	if err != nil {
 		log.Print(err)
-		return exchangeRate, err
+		return entities.ExchangeRate{}, err
 	}
 
+	exchangeRate := entities.ExchangeRate{}
 	if err := json.Unmarshal(resp.Body(), &exchangeRate); err != nil {
 		log.Print(err)
 		log.Print("failed to unmarshal exchangeRateData")
-		fmt.Println(resp.Body())
-		return exchangeRate, err
+		return entities.ExchangeRate{}, err
 	}
 
 	if exchangeRate.Success != true {
+		err := errors.New("can`t get exchange rate data")
 		log.Print(err)
-		log.Print("cant get exchange rate data")
-
-		return exchangeRate, err
+		return entities.ExchangeRate{}, err
 	}
+
 	return exchangeRate, nil
 }
