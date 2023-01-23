@@ -5,6 +5,8 @@ import (
 	"log"
 )
 
+//go:generate mockgen -source=./coins.go -destination=./mock_test.go -package=usecases
+
 type CoinsAdapter interface {
 	GetCoins(map[string]string) (entities.CoinsData, error)
 }
@@ -27,21 +29,26 @@ type CoinsUseCase struct {
 
 func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, error) {
 
+	//TODO : тести, make err wrap
 	coinsData, err := c.coinsAdapter.GetCoins(params)
 	if err != nil {
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
-
-	////Make exange from USD to UAH
+	//Get exchange rate USD to UAH
 	exchangeRate, err := c.exchangeAdapter.GetExchangeRate()
-	for i := 0; i < len(coinsData.Coins); i++ {
-		coinsData.Coins[i].Quote.USD.Price = coinsData.Coins[i].Quote.USD.Price * exchangeRate.Quotes.USDUAH
-	}
 	if err != nil {
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
+	// Change coins value
+	makeExchange(coinsData, exchangeRate)
 
 	return coinsData, nil
+}
+
+func makeExchange(coinsData entities.CoinsData, exchangeRate entities.ExchangeRate) {
+	for i := 0; i < len(coinsData.Coins); i++ {
+		coinsData.Coins[i].Quote.USD.Price = coinsData.Coins[i].Quote.USD.Price * exchangeRate.Quotes.USDUAH
+	}
 }

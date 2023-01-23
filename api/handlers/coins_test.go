@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"crypto-viewer/src/entities"
+	"github.com/golang/mock/gomock"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -9,7 +11,8 @@ import (
 
 func TestCoinsHandler_CoinsResty(t *testing.T) {
 
-	//restyClient := resty.New()
+	ctrl := gomock.NewController(t)
+
 	tests := map[string]struct {
 		name            string
 		coinsUseCase    CoinsUseCase
@@ -20,21 +23,22 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 		"sucess": {
 			name: "succes",
 			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.GetCoins(queryParams)
 
-				return nil
+				return m
 			}(),
 			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.SaveCoins(entities.CoinsData{})
 
-				//queryParams := map[string]string{
-				//	"start": "1",
-				//	"limit": "4",
-				//}
-
-				return nil
+				return m
 			}(),
-			response: http.Response{
-				Status: http.StatusOK,
-			},
+			response: nil,
 			request: &http.Request{
 				Method: "GET",
 				URL: &url.URL{

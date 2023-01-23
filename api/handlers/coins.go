@@ -7,6 +7,8 @@ import (
 	"crypto-viewer/src/entities"
 )
 
+//go:generate mockgen -source=./coins.go -destination=./mock_test.go -package=usecases
+
 type CoinsUseCase interface {
 	GetCoins(params map[string]string) (entities.CoinsData, error)
 }
@@ -29,13 +31,17 @@ func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase) Co
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
+	// Get params for Getcoins
 	queryParams := map[string]string{
 		"start": r.URL.Query().Get("start"),
 		"limit": r.URL.Query().Get("limit"),
 	}
 
+	// TODO: validate params
+
 	resp, err := c.coinsUseCase.GetCoins(queryParams)
 
+	// TODO: make err wrap
 	if err != nil {
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)

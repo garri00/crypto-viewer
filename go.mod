@@ -6,6 +6,7 @@ require (
 	github.com/gavv/httpexpect/v2 v2.8.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-resty/resty/v2 v2.7.0
+	github.com/golang/mock v1.6.0
 	github.com/jarcoal/httpmock v1.2.0
 )
 
@@ -33,6 +34,5 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
-	moul.io/http2curl v1.0.1-0.20190925090545-5cd742060b0e // indirect
 	moul.io/http2curl/v2 v2.3.0 // indirect
 )

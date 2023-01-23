@@ -32,8 +32,6 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 		SetHeader("X-CMC_PRO_API_KEY", config.GetConfigTokenAPI()).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
-	fmt.Println(resp.Request.URL)
-
 	//Check if request is OK
 	if err != nil {
 		log.Print(err)
