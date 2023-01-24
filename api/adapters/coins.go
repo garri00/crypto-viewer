@@ -34,6 +34,7 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 
 	//Check if request is OK
 	if err != nil {
+		err := fmt.Errorf("cant get request to CMC: %w", err)
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}

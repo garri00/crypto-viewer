@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"crypto-viewer/src/entities"
+	"errors"
 	"github.com/golang/mock/gomock"
 	"reflect"
 	"testing"
@@ -51,12 +52,12 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 					"limit": "4",
 				}
 				m := NewMockCoinsAdapter(ctrl)
-				m.EXPECT().GetCoins(queryParams).Times(1)
+				m.EXPECT().GetCoins(queryParams).Times(1).Return(errors.New("failed to unmarshal coinsData"))
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
-				m.EXPECT().GetExchangeRate().Times(1).Return(entities.CoinsData{})
+				m.EXPECT().GetExchangeRate().Times(0)
 				return m
 			}(),
 			params: map[string]string{
@@ -66,7 +67,7 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 			want:    entities.CoinsData{},
 			wantErr: true,
 		},
-		//
+
 		//"bad_get_exchange_rate": {
 		//	name: "succes",
 		//	coinsAdapter: func() CoinsAdapter {
@@ -85,7 +86,7 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		//	}(),
 		//	params: map[string]string{
 		//		"start": "1",
-		//		"limit": "2",
+		//		"limit": "4",
 		//	},
 		//	want:    entities.CoinsData{},
 		//	wantErr: true,
@@ -111,20 +112,20 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 }
 
 // Do I need to test this function
-func Test_makeExchange(t *testing.T) {
-	type args struct {
-		coinsData    entities.CoinsData
-		exchangeRate entities.ExchangeRate
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			makeExchange(tt.args.coinsData, tt.args.exchangeRate)
-		})
-	}
-}
+//func Test_makeExchange(t *testing.T) {
+//	type args struct {
+//		coinsData    entities.CoinsData
+//		exchangeRate entities.ExchangeRate
+//	}
+//	tests := []struct {
+//		name string
+//		args args
+//	}{
+//		// TODO: Add test cases.
+//	}
+//	for _, tt := range tests {
+//		t.Run(tt.name, func(t *testing.T) {
+//			makeExchange(tt.args.coinsData, tt.args.exchangeRate)
+//		})
+//	}
+//}

@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"crypto-viewer/src/entities"
+	"fmt"
 	"log"
 )
 
@@ -29,15 +30,17 @@ type CoinsUseCase struct {
 
 func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, error) {
 
-	//TODO : тести, make err wrap
+	//Get coins from CMC api
 	coinsData, err := c.coinsAdapter.GetCoins(params)
 	if err != nil {
+		err := fmt.Errorf("cant call coins adapter: %w", err)
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
 	//Get exchange rate USD to UAH
 	exchangeRate, err := c.exchangeAdapter.GetExchangeRate()
 	if err != nil {
+		err := fmt.Errorf("cant call exchange adapter: %w", err)
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}

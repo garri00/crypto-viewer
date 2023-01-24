@@ -16,15 +16,36 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 	responder := httpmock.NewStringResponder(200, "")
 	httpmock.RegisterResponder("GET", "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=4&start=1", responder)
+
 	tests := map[string]struct {
 		name        string
 		restyClient *resty.Client
 		params      map[string]string
-		want        entities.CoinsData
+		want        entities.CoinsData // чому це не спрацювало
 		wantErr     bool
 	}{
 		"succes": {
 			name:        "succes",
+			restyClient: restyClient,
+			params: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			want:    entities.CoinsData{},
+			wantErr: false,
+		},
+		"bad responce from CMC api": {
+			name:        "bad responce from CMC api",
+			restyClient: restyClient,
+			params: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			want:    entities.CoinsData{},
+			wantErr: false,
+		},
+		"bad": {
+			name:        "bad",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",

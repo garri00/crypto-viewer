@@ -1,8 +1,11 @@
 package handlers
 
 import (
+	"errors"
+	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"crypto-viewer/src/entities"
 )
@@ -37,12 +40,17 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		"limit": r.URL.Query().Get("limit"),
 	}
 
-	// TODO: validate params
+	if err := validateParams(queryParams); err != nil {
+		err := fmt.Errorf("wrong query params %w", err)
+		log.Print(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("failed to create GET coins"))
+		return
+	}
 
 	resp, err := c.coinsUseCase.GetCoins(queryParams)
-
-	// TODO: make err wrap
 	if err != nil {
+		err := fmt.Errorf("failed to create GET coins %w", err)
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to create GET coins"))
@@ -51,6 +59,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	file, err := c.saveDataUseCase.SaveCoins(resp)
 	if err != nil {
+		err := fmt.Errorf("failed to save coins %w", err)
 		log.Print(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to save coins"))
@@ -61,4 +70,25 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(file)
 
+}
+
+func validateParams(params map[string]string) error {
+
+	startValue, err := strconv.Atoi(params["start"])
+	if err != nil {
+		return errors.New("wrong start param")
+	}
+	if startValue < 1 {
+		return errors.New("wrong start param < 1")
+	}
+
+	limitValue, err := strconv.Atoi(params["limit"])
+	if err != nil {
+		return errors.New("wrong limit param")
+	}
+	if limitValue < 1 && limitValue > 5000 {
+		return errors.New("wrong limit param")
+	}
+
+	return nil
 }

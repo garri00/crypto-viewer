@@ -28,13 +28,13 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 					"limit": "4",
 				}
 				m := NewMockCoinsUseCase(ctrl)
-				m.GetCoins(queryParams)
+				m.EXPECT().GetCoins(queryParams).Times(1)
 
 				return m
 			}(),
 			saveDataUseCase: func() SaveDataUseCase {
 				m := NewMockSaveDataUseCase(ctrl)
-				m.SaveCoins(entities.CoinsData{})
+				m.EXPECT().SaveCoins(entities.CoinsData{}).Times(1)
 
 				return m
 			}(),
@@ -74,6 +74,50 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 				RemoteAddr: "",
 				RequestURI: "",
 			},
+		},
+
+		"bad coins usecase": {
+			name: "bad coins usecase",
+			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.EXPECT().GetCoins(queryParams).Times(1)
+
+				return m
+			}(),
+			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.EXPECT().SaveCoins(entities.CoinsData{}).Times(1)
+
+				return m
+			}(),
+			response: nil,
+			request:  &http.Request{},
+		},
+
+		"bad save data usecase": {
+			name: "bad save data usecase",
+			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.EXPECT().GetCoins(queryParams).Times(1)
+
+				return m
+			}(),
+			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.EXPECT().SaveCoins(entities.CoinsData{}).Times(1)
+
+				return m
+			}(),
+			response: nil,
+			request:  &http.Request{},
 		},
 	}
 	for _, tt := range tests {
