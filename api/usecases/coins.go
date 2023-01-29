@@ -29,7 +29,6 @@ type CoinsUseCase struct {
 }
 
 func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, error) {
-
 	//Get coins from CMC api
 	coinsData, err := c.coinsAdapter.GetCoins(params)
 	if err != nil {
@@ -37,6 +36,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
+
 	//Get exchange rate USD to UAH
 	exchangeRate, err := c.exchangeAdapter.GetExchangeRate()
 	if err != nil {
@@ -44,6 +44,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
+
 	// Change coins value
 	makeExchange(coinsData, exchangeRate)
 

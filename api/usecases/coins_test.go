@@ -2,13 +2,28 @@ package usecases
 
 import (
 	"crypto-viewer/src/entities"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/golang/mock/gomock"
+	"io/ioutil"
+	"os"
 	"reflect"
 	"testing"
 )
 
 func TestCoinsUseCase_GetCoins(t *testing.T) {
+	// TODO : change data
+	var okResponse = entities.CoinsData{}
+	var okResponseBeforeExchange = entities.CoinsData{}
+	jsonFile, err := os.Open("test_coinsData_exchanged.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal(byteValue, &okResponse)
+	json.Unmarshal(byteValue, &okResponseBeforeExchange)
 
 	ctrl := gomock.NewController(t)
 
@@ -27,20 +42,32 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 					"start": "1",
 					"limit": "4",
 				}
+				for i := 0; i < len(okResponseBeforeExchange.Coins); i++ {
+					okResponseBeforeExchange.Coins[i].Quote.USD.Price = okResponseBeforeExchange.Coins[i].Quote.USD.Price / 36.2
+				}
 				m := NewMockCoinsAdapter(ctrl)
-				m.EXPECT().GetCoins(queryParams).Times(1)
+				m.EXPECT().GetCoins(queryParams).Return(okResponseBeforeExchange, nil).Times(1)
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
-				m.EXPECT().GetExchangeRate().Times(1)
+				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{
+					Quotes: entities.Quotes{
+						USDUAH: 36.2,
+					},
+					Source:    "USD",
+					Success:   true,
+					Timestamp: 1675011303,
+				},
+					nil).
+					Times(1)
 				return m
 			}(),
 			params: map[string]string{
 				"start": "1",
 				"limit": "4",
 			},
-			want:    entities.CoinsData{},
+			want:    okResponse,
 			wantErr: false,
 		},
 
@@ -52,7 +79,7 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 					"limit": "4",
 				}
 				m := NewMockCoinsAdapter(ctrl)
-				m.EXPECT().GetCoins(queryParams).Times(1).Return(errors.New("failed to unmarshal coinsData"))
+				m.EXPECT().GetCoins(queryParams).Return(entities.CoinsData{}, errors.New("cant call coins adapter: ")).Times(1)
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
@@ -68,29 +95,29 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 			wantErr: true,
 		},
 
-		//"bad_get_exchange_rate": {
-		//	name: "succes",
-		//	coinsAdapter: func() CoinsAdapter {
-		//		queryParams := map[string]string{
-		//			"start": "1",
-		//			"limit": "4",
-		//		}
-		//		m := NewMockCoinsAdapter(ctrl)
-		//		m.EXPECT().GetCoins(queryParams).Times(1)
-		//		return m
-		//	}(),
-		//	exchangeAdapter: func() ExchangeAdapter {
-		//		m := NewMockExchangeAdapter(ctrl)
-		//		m.EXPECT().GetExchangeRate().Times(1)
-		//		return m
-		//	}(),
-		//	params: map[string]string{
-		//		"start": "1",
-		//		"limit": "4",
-		//	},
-		//	want:    entities.CoinsData{},
-		//	wantErr: true,
-		//},
+		"bad_get_exchange_rate": {
+			name: "bad_get_exchange_rate",
+			coinsAdapter: func() CoinsAdapter {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsAdapter(ctrl)
+				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
+				return m
+			}(),
+			exchangeAdapter: func() ExchangeAdapter {
+				m := NewMockExchangeAdapter(ctrl)
+				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{}, errors.New("cant call exchange adapter: ")).Times(1)
+				return m
+			}(),
+			params: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			want:    entities.CoinsData{},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {

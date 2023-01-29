@@ -1,8 +1,10 @@
 package entities
 
 type Status struct {
-	Status struct {
-		ErrorCode    int    `json:"error_code"`
-		ErrorMessage string `json:"error_message"`
-	} `json:"status"`
+	Body `json:"status"`
+}
+
+type Body struct {
+	ErrorCode    int    `json:"error_code"`
+	ErrorMessage string `json:"error_message"`
 }

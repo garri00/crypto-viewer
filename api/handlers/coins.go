@@ -33,7 +33,6 @@ func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase) Co
 }
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
-
 	// Get params for Getcoins
 	queryParams := map[string]string{
 		"start": r.URL.Query().Get("start"),
@@ -41,8 +40,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := validateParams(queryParams); err != nil {
-		err := fmt.Errorf("wrong query params %w", err)
-		log.Print(err)
+		log.Print(fmt.Errorf("wrong query params: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to create GET coins"))
 		return
@@ -50,8 +48,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := c.coinsUseCase.GetCoins(queryParams)
 	if err != nil {
-		err := fmt.Errorf("failed to create GET coins %w", err)
-		log.Print(err)
+		log.Print(fmt.Errorf("failed to create GET coins: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to create GET coins"))
 		return
@@ -59,8 +56,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	file, err := c.saveDataUseCase.SaveCoins(resp)
 	if err != nil {
-		err := fmt.Errorf("failed to save coins %w", err)
-		log.Print(err)
+		log.Print(fmt.Errorf("failed to save coins: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to save coins"))
 		return

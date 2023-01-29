@@ -4,10 +4,9 @@ import (
 	"crypto-viewer/src/entities"
 	"encoding/json"
 	"fmt"
+	"github.com/go-resty/resty/v2"
 	"log"
 	"net/http"
-
-	"github.com/go-resty/resty/v2"
 
 	"crypto-viewer/src/config"
 )
@@ -22,8 +21,12 @@ type CoinsAdapter struct {
 	restyClient *resty.Client
 }
 
-func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, error) {
+type Query struct {
+	start string
+	limit string
+}
 
+func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, error) {
 	//Make call to CMC API
 	resp, err := c.restyClient.R().
 		EnableTrace().
@@ -43,19 +46,19 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 	if resp.StatusCode() != http.StatusOK {
 		errResponse := entities.Status{}
 		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
+			err := fmt.Errorf("failed to unmarshal errResponse: %w", err)
 			log.Print(err)
-			log.Print("failed to unmarshal errResponse")
 			return entities.CoinsData{}, err
 		}
-		err := fmt.Errorf("Code=%d, Message=%s", errResponse.Status.ErrorCode, errResponse.Status.ErrorMessage)
+		err := fmt.Errorf("Code=%d, Message=%s", errResponse.Body.ErrorCode, errResponse.Body.ErrorMessage)
 		log.Print(err)
 		return entities.CoinsData{}, err
 	}
 
 	var coinsData = entities.CoinsData{}
 	if err := json.Unmarshal(resp.Body(), &coinsData); err != nil {
+		err := fmt.Errorf("failed to unmarshal coinsData: %w", err)
 		log.Print(err)
-		log.Print("failed to unmarshal coinsData")
 		return entities.CoinsData{}, err
 	}
 

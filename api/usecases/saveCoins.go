@@ -22,7 +22,7 @@ func (c SaveDataUseCase) SaveCoins(coinsData entities.CoinsData) ([]byte, error)
 		log.Print("failed to unmarshal coinsData")
 		return nil, err
 	}
-	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
+	ioutil.WriteFile("src/pkg/test_coinsData_exchanged.json", file, 0644)
 
 	return file, nil
 }

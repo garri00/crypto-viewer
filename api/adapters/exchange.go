@@ -5,6 +5,7 @@ import (
 	"crypto-viewer/src/entities"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/go-resty/resty/v2"
 	"log"
 )
@@ -31,14 +32,15 @@ func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
 		Get("https://api.apilayer.com/currency_data/live")
 
 	if err != nil {
+		err := fmt.Errorf("cant call exchange api: %w", err)
 		log.Print(err)
 		return entities.ExchangeRate{}, err
 	}
 
 	exchangeRate := entities.ExchangeRate{}
 	if err := json.Unmarshal(resp.Body(), &exchangeRate); err != nil {
+		err := fmt.Errorf("failed to unmarshal exchangeRateData: %w", err)
 		log.Print(err)
-		log.Print("failed to unmarshal exchangeRateData")
 		return entities.ExchangeRate{}, err
 	}
 
