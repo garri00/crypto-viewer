@@ -26,14 +26,12 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 	ctrl := gomock.NewController(t)
 
 	tests := map[string]struct {
-		name            string
 		coinsUseCase    CoinsUseCase
 		saveDataUseCase SaveDataUseCase
 		response        http.ResponseWriter
 		request         *http.Request
 	}{
 		"sucess": {
-			name: "succes",
 			coinsUseCase: func() CoinsUseCase {
 				queryParams := map[string]string{
 					"start": "1",
@@ -99,18 +97,14 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 		//	request:  &http.Request{},
 		//},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for name, tt := range tests {
+		t.Run(name, func(t *testing.T) {
 			c := CoinsHandler{
 				coinsUseCase:    tt.coinsUseCase,
 				saveDataUseCase: tt.saveDataUseCase,
 			}
-			//
 
 			router := chi.NewRouter()
-
-			c.CoinsResty(tt.response, tt.request)
-			//c := CoinsHendler(tt.coinsUseCase, tt.saveDataUseCase)
 			router.Get("/coins", c.CoinsResty)
 			httpClient := &http.Client{
 				Transport: httpexpect.NewBinder(router),

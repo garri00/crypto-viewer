@@ -13,7 +13,7 @@ import (
 )
 
 func TestCoinsUseCase_GetCoins(t *testing.T) {
-	// TODO : change data
+	//TODO : change data
 	var okResponse = entities.CoinsData{}
 	var okResponseBeforeExchange = entities.CoinsData{}
 	jsonFile, err := os.Open("test_coinsData_exchanged.json")
@@ -28,7 +28,6 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 	ctrl := gomock.NewController(t)
 
 	tests := map[string]struct {
-		name            string
 		coinsAdapter    CoinsAdapter
 		exchangeAdapter ExchangeAdapter
 		params          map[string]string
@@ -36,7 +35,6 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		wantErr         bool
 	}{
 		"succes": {
-			name: "succes",
 			coinsAdapter: func() CoinsAdapter {
 				queryParams := map[string]string{
 					"start": "1",
@@ -72,7 +70,6 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		},
 
 		"bad_get_coins": {
-			name: "bad_get_coins",
 			coinsAdapter: func() CoinsAdapter {
 				queryParams := map[string]string{
 					"start": "1",
@@ -96,7 +93,6 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		},
 
 		"bad_get_exchange_rate": {
-			name: "bad_get_exchange_rate",
 			coinsAdapter: func() CoinsAdapter {
 				queryParams := map[string]string{
 					"start": "1",
@@ -120,12 +116,19 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for name, tt := range tests {
+		t.Run(name, func(t *testing.T) {
 			c := CoinsUseCase{
 				coinsAdapter:    tt.coinsAdapter,
 				exchangeAdapter: tt.exchangeAdapter,
 			}
+
+			//assert.Equal(t, tt.exp, got)
+			//if tt.expErr != nil {
+			//	assert.EqualError(t, err, tt.expErr.Error())
+			//} else {
+			//	assert.NoError(t, err)
+			//}
 			got, err := c.GetCoins(tt.params)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetCoins() error = %v, wantErr %v", err, tt.wantErr)
@@ -137,22 +140,3 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 		})
 	}
 }
-
-// Do I need to test this function
-//func Test_makeExchange(t *testing.T) {
-//	type args struct {
-//		coinsData    entities.CoinsData
-//		exchangeRate entities.ExchangeRate
-//	}
-//	tests := []struct {
-//		name string
-//		args args
-//	}{
-//		// TODO: Add test cases.
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			makeExchange(tt.args.coinsData, tt.args.exchangeRate)
-//		})
-//	}
-//}

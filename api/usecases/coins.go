@@ -51,6 +51,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 	return coinsData, nil
 }
 
+// TODO: change signature
 func makeExchange(coinsData entities.CoinsData, exchangeRate entities.ExchangeRate) {
 	for i := 0; i < len(coinsData.Coins); i++ {
 		coinsData.Coins[i].Quote.USD.Price = coinsData.Coins[i].Quote.USD.Price * exchangeRate.Quotes.USDUAH

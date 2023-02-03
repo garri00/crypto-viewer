@@ -13,9 +13,10 @@ import (
 	"testing"
 )
 
-// funy thing with set query params it place it in alphabetical way by key how to test it in right way. Should I manually set url and then make request
-// And next funny moment of documentations it didn`t said nothing about that
-// AND THE FUNNIEST THING ABOUT HTTP MOCK DOCUMENTATION THAT NOT SPICIFIED NOTHING ABOUT
+var testCoins = entities.CoinsData{
+	Coins: nil,
+}
+
 func TestCoinsAdapter_GetCoins(t *testing.T) {
 	restyClient := resty.New()
 
@@ -32,7 +33,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 	json.Unmarshal(byteValue, &okResponse)
 
 	tests := map[string]struct {
-		name        string
 		restyClient *resty.Client
 		params      map[string]string
 		responder   func()
@@ -40,7 +40,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 		wantErr     bool
 	}{
 		"succes": {
-			name:        "succes",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",
@@ -55,7 +54,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 		},
 
 		"bad responce from CMC api": {
-			name:        "bad responce from CMC api",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",
@@ -70,7 +68,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 		},
 
 		"bad responce from CMC api: failed to unmarshal errResponse": {
-			name:        "bad responce from CMC api: failed to unmarshal errResponse",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",
@@ -85,7 +82,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 		},
 
 		"bad responce from CMC api: failed to unmarshal coinsData": {
-			name:        "bad responce from CMC api: failed to unmarshal coinsData",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",
@@ -100,7 +96,6 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 		},
 
 		"bad can`t get unswer form api": {
-			name:        "bad can`t get unswer form api",
 			restyClient: restyClient,
 			params: map[string]string{
 				"start": "1",
@@ -114,12 +109,20 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 			wantErr: true,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+
+	//TODO: check errors
+	for name, tt := range tests {
+		t.Run(name, func(t *testing.T) {
 			c := CoinsAdapter{
 				restyClient: tt.restyClient,
 			}
 
+			//assert.Equal(t, tt.exp, got)
+			//if tt.expErr != nil {
+			//	assert.EqualError(t, err, tt.expErr.Error())
+			//} else {
+			//	assert.NoError(t, err)
+			//}
 			tt.responder()
 			got, err := c.GetCoins(tt.params)
 			if (err != nil) != tt.wantErr {
