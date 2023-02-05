@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -10,14 +11,14 @@ import (
 	"crypto-viewer/src/entities"
 )
 
-//go:generate mockgen -source=./coins.go -destination=./mock_test.go -package=usecases
+//go:generate mockgen -source=./coins.go -destination=./mock_test.go -package=handlers
 
 type CoinsUseCase interface {
 	GetCoins(params map[string]string) (entities.CoinsData, error)
 }
 
 type SaveDataUseCase interface {
-	SaveCoins(coinsData entities.CoinsData) ([]byte, error)
+	SaveCoins(coinsData entities.CoinsData) error
 }
 
 type CoinsHandler struct {
@@ -54,17 +55,22 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	file, err := c.saveDataUseCase.SaveCoins(resp)
-	if err != nil {
+	if err := c.saveDataUseCase.SaveCoins(resp); err != nil {
 		log.Print(fmt.Errorf("failed to save coins: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("failed to save coins"))
 		return
 	}
-
+	
+	body, err := json.MarshalIndent(resp, "", " ")
+	if err != nil {
+		log.Print(err)
+		log.Print("failed to unmarshal coinsData")
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write(file)
+	w.Write(body)
 
 }
 

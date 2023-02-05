@@ -2,34 +2,138 @@ package handlers
 
 import (
 	"crypto-viewer/src/entities"
-	"encoding/json"
-	"fmt"
 	"github.com/gavv/httpexpect/v2"
 	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
-	"io/ioutil"
 	"net/http"
-	"os"
 	"testing"
+	"time"
 )
 
+var okResponse = entities.CoinsData{
+
+	Coins: []entities.Coin{
+		{
+			Id:                0,
+			Name:              "",
+			Symbol:            "",
+			Slug:              "",
+			NumMarketPairs:    0,
+			DateAdded:         time.Time{},
+			MaxSupply:         nil,
+			CirculatingSupply: 0,
+			TotalSupply:       0,
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price:                 0,
+					Volume24H:             0,
+					VolumeChange24H:       0,
+					PercentChange1H:       0,
+					PercentChange24H:      0,
+					PercentChange7D:       0,
+					PercentChange30D:      0,
+					PercentChange60D:      0,
+					PercentChange90D:      0,
+					MarketCap:             0,
+					MarketCapDominance:    0,
+					FullyDilutedMarketCap: 0,
+					LastUpdated:           time.Time{},
+				},
+			},
+		},
+		{
+			Id:                0,
+			Name:              "",
+			Symbol:            "",
+			Slug:              "",
+			NumMarketPairs:    0,
+			DateAdded:         time.Time{},
+			MaxSupply:         nil,
+			CirculatingSupply: 0,
+			TotalSupply:       0,
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price:                 0,
+					Volume24H:             0,
+					VolumeChange24H:       0,
+					PercentChange1H:       0,
+					PercentChange24H:      0,
+					PercentChange7D:       0,
+					PercentChange30D:      0,
+					PercentChange60D:      0,
+					PercentChange90D:      0,
+					MarketCap:             0,
+					MarketCapDominance:    0,
+					FullyDilutedMarketCap: 0,
+					LastUpdated:           time.Time{},
+				},
+			},
+		},
+		{
+			Id:                0,
+			Name:              "",
+			Symbol:            "",
+			Slug:              "",
+			NumMarketPairs:    0,
+			DateAdded:         time.Time{},
+			MaxSupply:         nil,
+			CirculatingSupply: 0,
+			TotalSupply:       0,
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price:                 0,
+					Volume24H:             0,
+					VolumeChange24H:       0,
+					PercentChange1H:       0,
+					PercentChange24H:      0,
+					PercentChange7D:       0,
+					PercentChange30D:      0,
+					PercentChange60D:      0,
+					PercentChange90D:      0,
+					MarketCap:             0,
+					MarketCapDominance:    0,
+					FullyDilutedMarketCap: 0,
+					LastUpdated:           time.Time{},
+				},
+			},
+		},
+		{
+			Id:                0,
+			Name:              "",
+			Symbol:            "",
+			Slug:              "",
+			NumMarketPairs:    0,
+			DateAdded:         time.Time{},
+			MaxSupply:         nil,
+			CirculatingSupply: 0,
+			TotalSupply:       0,
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price:                 0,
+					Volume24H:             0,
+					VolumeChange24H:       0,
+					PercentChange1H:       0,
+					PercentChange24H:      0,
+					PercentChange7D:       0,
+					PercentChange30D:      0,
+					PercentChange60D:      0,
+					PercentChange90D:      0,
+					MarketCap:             0,
+					MarketCapDominance:    0,
+					FullyDilutedMarketCap: 0,
+					LastUpdated:           time.Time{},
+				},
+			},
+		},
+	},
+}
+
 func TestCoinsHandler_CoinsResty(t *testing.T) {
-	var okResponse = entities.CoinsData{}
-	jsonFile, err := os.Open("test_coinsData.json")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &okResponse)
-
 	ctrl := gomock.NewController(t)
 
 	tests := map[string]struct {
 		coinsUseCase    CoinsUseCase
 		saveDataUseCase SaveDataUseCase
-		response        http.ResponseWriter
-		request         *http.Request
 	}{
 		"sucess": {
 			coinsUseCase: func() CoinsUseCase {
@@ -43,14 +147,11 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 				return m
 			}(),
 			saveDataUseCase: func() SaveDataUseCase {
-				file, _ := json.MarshalIndent(okResponse, "", " ")
 				m := NewMockSaveDataUseCase(ctrl)
-				m.EXPECT().SaveCoins(entities.CoinsData{}).Return(file, nil).Times(1)
+				m.EXPECT().SaveCoins(okResponse).Return(nil).Times(1)
 
 				return m
 			}(),
-			response: nil,
-			request:  &http.Request{},
 		},
 
 		//"bad coins usecase": {
@@ -71,8 +172,6 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 		//
 		//		return m
 		//	}(),
-		//	response: nil,
-		//	request:  &http.Request{},
 		//},
 
 		//"bad save data usecase": {
@@ -93,8 +192,6 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 		//
 		//		return m
 		//	}(),
-		//	response: nil,
-		//	request:  &http.Request{},
 		//},
 	}
 	for name, tt := range tests {
@@ -119,10 +216,10 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 				},
 			})
 
-			e.GET("").
+			e.GET("/coins").
 				WithQuery("start", "1").WithQuery("limit", "4").
 				Expect().
-				Status(http.StatusOK)
+				Status(http.StatusOK).Body()
 
 		})
 	}

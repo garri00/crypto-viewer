@@ -2,81 +2,148 @@ package usecases
 
 import (
 	"crypto-viewer/src/entities"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/golang/mock/gomock"
-	"io/ioutil"
-	"os"
-	"reflect"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
+var queryParams = map[string]string{
+	"start": "1",
+	"limit": "4",
+}
+
+var okResponse = entities.CoinsData{
+
+	Coins: []entities.Coin{
+		{
+			Id:     1,
+			Name:   "BitCoin",
+			Symbol: "BTC",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 20,
+				},
+			},
+		},
+		{
+			Id:     300,
+			Name:   "Etherym",
+			Symbol: "ETH",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 10,
+				},
+			},
+		},
+		{
+			Id:     341,
+			Name:   "BNB",
+			Symbol: "BNB",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 11255.190172461225,
+				},
+			},
+		},
+		{
+			Id:     1233,
+			Name:   "Tether",
+			Symbol: "USDT",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 36.77161508245386,
+				},
+			},
+		},
+	},
+}
+
+var coinsExchangedUSDtoUAH = entities.CoinsData{
+
+	Coins: []entities.Coin{
+		{
+			Id:     1,
+			Name:   "BitCoin",
+			Symbol: "BTC",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 724,
+				},
+			},
+		},
+		{
+			Id:     300,
+			Name:   "Etherym",
+			Symbol: "ETH",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 362,
+				},
+			},
+		},
+		{
+			Id:     341,
+			Name:   "BNB",
+			Symbol: "BNB",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 407437.8842430964,
+				},
+			},
+		},
+		{
+			Id:     1233,
+			Name:   "Tether",
+			Symbol: "USDT",
+			Quote: entities.Quote{
+				USD: entities.USD{
+					Price: 1331.1324659848299,
+				},
+			},
+		},
+	},
+}
+
+var exchandeRateUSDtoUAH = entities.ExchangeRate{
+	Quotes: entities.Quotes{
+		USDUAH: 36.2,
+	},
+	Source:    "USD",
+	Success:   true,
+	Timestamp: 1675011303,
+}
+
 func TestCoinsUseCase_GetCoins(t *testing.T) {
-	//TODO : change data
-	var okResponse = entities.CoinsData{}
-	var okResponseBeforeExchange = entities.CoinsData{}
-	jsonFile, err := os.Open("test_coinsData_exchanged.json")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &okResponse)
-	json.Unmarshal(byteValue, &okResponseBeforeExchange)
-
 	ctrl := gomock.NewController(t)
+
+	mockedError := errors.New("ERROR")
 
 	tests := map[string]struct {
 		coinsAdapter    CoinsAdapter
 		exchangeAdapter ExchangeAdapter
-		params          map[string]string
-		want            entities.CoinsData
-		wantErr         bool
+		exp             entities.CoinsData
+		expErr          error
 	}{
 		"succes": {
 			coinsAdapter: func() CoinsAdapter {
-				queryParams := map[string]string{
-					"start": "1",
-					"limit": "4",
-				}
-				for i := 0; i < len(okResponseBeforeExchange.Coins); i++ {
-					okResponseBeforeExchange.Coins[i].Quote.USD.Price = okResponseBeforeExchange.Coins[i].Quote.USD.Price / 36.2
-				}
 				m := NewMockCoinsAdapter(ctrl)
-				m.EXPECT().GetCoins(queryParams).Return(okResponseBeforeExchange, nil).Times(1)
+				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
-				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{
-					Quotes: entities.Quotes{
-						USDUAH: 36.2,
-					},
-					Source:    "USD",
-					Success:   true,
-					Timestamp: 1675011303,
-				},
-					nil).
-					Times(1)
+				m.EXPECT().GetExchangeRate().Return(exchandeRateUSDtoUAH, nil).Times(1)
 				return m
 			}(),
-			params: map[string]string{
-				"start": "1",
-				"limit": "4",
-			},
-			want:    okResponse,
-			wantErr: false,
+			exp:    coinsExchangedUSDtoUAH,
+			expErr: nil,
 		},
 
 		"bad_get_coins": {
 			coinsAdapter: func() CoinsAdapter {
-				queryParams := map[string]string{
-					"start": "1",
-					"limit": "4",
-				}
 				m := NewMockCoinsAdapter(ctrl)
-				m.EXPECT().GetCoins(queryParams).Return(entities.CoinsData{}, errors.New("cant call coins adapter: ")).Times(1)
+				m.EXPECT().GetCoins(queryParams).Return(entities.CoinsData{}, mockedError).Times(1)
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
@@ -84,35 +151,23 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 				m.EXPECT().GetExchangeRate().Times(0)
 				return m
 			}(),
-			params: map[string]string{
-				"start": "1",
-				"limit": "4",
-			},
-			want:    entities.CoinsData{},
-			wantErr: true,
+			exp:    entities.CoinsData{},
+			expErr: errors.New("cant call coins adapter: " + error(mockedError).Error()),
 		},
 
 		"bad_get_exchange_rate": {
 			coinsAdapter: func() CoinsAdapter {
-				queryParams := map[string]string{
-					"start": "1",
-					"limit": "4",
-				}
 				m := NewMockCoinsAdapter(ctrl)
 				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
-				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{}, errors.New("cant call exchange adapter: ")).Times(1)
+				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{}, mockedError).Times(1)
 				return m
 			}(),
-			params: map[string]string{
-				"start": "1",
-				"limit": "4",
-			},
-			want:    entities.CoinsData{},
-			wantErr: true,
+			exp:    entities.CoinsData{},
+			expErr: errors.New("cant call exchange adapter: " + error(mockedError).Error()),
 		},
 	}
 
@@ -122,20 +177,12 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 				coinsAdapter:    tt.coinsAdapter,
 				exchangeAdapter: tt.exchangeAdapter,
 			}
-
-			//assert.Equal(t, tt.exp, got)
-			//if tt.expErr != nil {
-			//	assert.EqualError(t, err, tt.expErr.Error())
-			//} else {
-			//	assert.NoError(t, err)
-			//}
-			got, err := c.GetCoins(tt.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetCoins() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetCoins() got = %v, want %v", got, tt.want)
+			got, err := c.GetCoins(queryParams)
+			assert.Equal(t, tt.exp, got)
+			if tt.expErr != nil {
+				assert.EqualError(t, err, tt.expErr.Error())
+			} else {
+				assert.NoError(t, err)
 			}
 		})
 	}

@@ -5,7 +5,7 @@ import (
 )
 
 type CoinsData struct {
-	Coins `json:"data"`
+	Coins []Coin `json:"data"`
 }
 
 type USD struct {
@@ -24,7 +24,7 @@ type USD struct {
 	LastUpdated           time.Time `json:"last_updated"`
 }
 
-type Coins []struct {
+type Coin struct {
 	Id                int       `json:"id"`
 	Name              string    `json:"name"`
 	Symbol            string    `json:"symbol"`
