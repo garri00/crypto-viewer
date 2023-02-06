@@ -32,7 +32,7 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 		EnableTrace().
 		SetQueryParams(params).
 		SetHeader("Accepts", "application/json").
-		SetHeader("X-CMC_PRO_API_KEY", config.GetConfigTokenAPI()).
+		SetHeader("X-CMC_PRO_API_KEY", config.Config.GetCoinMarketTokenAPI()).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 
 	//Check if request is OK

@@ -28,7 +28,7 @@ func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
 			"currencies": "UAH",
 		}).
 		SetHeader("Accepts", "application/json").
-		SetHeader("apikey", config.GetExchangeTokenAPI()).
+		SetHeader("apikey", config.Config.GetExchangeTokenAPI()).
 		Get("https://api.apilayer.com/currency_data/live")
 
 	if err != nil {

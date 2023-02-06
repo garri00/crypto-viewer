@@ -1,13 +1,21 @@
 package config
 
-const coinMarCapTokenAPI = "97b223b2-0a8d-431b-81f6-43bbb0d306cc"
+import "os"
 
-func GetConfigTokenAPI() string {
-	return coinMarCapTokenAPI
+type Configs struct {
+	coinMarCapTokenAPI string
+	exchangeTokenAPI   string
 }
 
-const exchangeTokenAPI = "rZKarI25VjvSBchH2Lx6TGKiBUYTqWiE"
+func (c Configs) GetCoinMarketTokenAPI() string {
+	return c.coinMarCapTokenAPI
+}
 
-func GetExchangeTokenAPI() string {
-	return exchangeTokenAPI
+func (c Configs) GetExchangeTokenAPI() string {
+	return c.exchangeTokenAPI
+}
+
+var Config = Configs{
+	coinMarCapTokenAPI: os.Getenv("CMCTOKEN"),
+	exchangeTokenAPI:   os.Getenv("EXCHANGETOKEN"),
 }
