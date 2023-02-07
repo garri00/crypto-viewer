@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"crypto-viewer/src/entities"
+	"errors"
 	"github.com/gavv/httpexpect/v2"
 	"github.com/go-chi/chi/v5"
 	"github.com/golang/mock/gomock"
@@ -15,7 +16,7 @@ var okResponse = entities.CoinsData{
 	Coins: []entities.Coin{
 		{
 			Id:                0,
-			Name:              "",
+			Name:              "BTC",
 			Symbol:            "",
 			Slug:              "",
 			NumMarketPairs:    0,
@@ -134,6 +135,9 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 	tests := map[string]struct {
 		coinsUseCase    CoinsUseCase
 		saveDataUseCase SaveDataUseCase
+		expQuery        map[string]string
+		expStatus       int
+		expBody         string
 	}{
 		"sucess": {
 			coinsUseCase: func() CoinsUseCase {
@@ -152,47 +156,89 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 
 				return m
 			}(),
+			expQuery: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			expStatus: http.StatusOK,
+			// how to send exp body in succes
+			expBody: "\"name\": \"BTC\"",
 		},
 
-		//"bad coins usecase": {
-		//	name: "bad coins usecase",
-		//	coinsUseCase: func() CoinsUseCase {
-		//		queryParams := map[string]string{
-		//			"start": "1",
-		//			"limit": "4",
-		//		}
-		//		m := NewMockCoinsUseCase(ctrl)
-		//		m.EXPECT().GetCoins(queryParams).Times(1)
-		//
-		//		return m
-		//	}(),
-		//	saveDataUseCase: func() SaveDataUseCase {
-		//		m := NewMockSaveDataUseCase(ctrl)
-		//		m.EXPECT().SaveCoins(entities.CoinsData{}).Times(1)
-		//
-		//		return m
-		//	}(),
-		//},
+		"bad query params": {
+			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "0",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.EXPECT().GetCoins(queryParams).Times(0)
 
-		//"bad save data usecase": {
-		//	name: "bad save data usecase",
-		//	coinsUseCase: func() CoinsUseCase {
-		//		queryParams := map[string]string{
-		//			"start": "1",
-		//			"limit": "4",
-		//		}
-		//		m := NewMockCoinsUseCase(ctrl)
-		//		m.EXPECT().GetCoins(queryParams).Times(1)
-		//
-		//		return m
-		//	}(),
-		//	saveDataUseCase: func() SaveDataUseCase {
-		//		m := NewMockSaveDataUseCase(ctrl)
-		//		m.EXPECT().SaveCoins(entities.CoinsData{}).Times(1)
-		//
-		//		return m
-		//	}(),
-		//},
+				return m
+			}(),
+			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.EXPECT().SaveCoins(nil).Times(0)
+
+				return m
+			}(),
+			expQuery: map[string]string{
+				"start": "0",
+				"limit": "4",
+			},
+			expStatus: http.StatusInternalServerError,
+			expBody:   "wrong query pqrams",
+		},
+
+		"bad coins usecase": {
+			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.EXPECT().GetCoins(queryParams).Return(entities.CoinsData{}, errors.New("cant call coins adapter:")).Times(1)
+
+				return m
+			}(),
+			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.EXPECT().SaveCoins(nil).Times(0)
+
+				return m
+			}(),
+			expQuery: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			expStatus: http.StatusInternalServerError,
+			expBody:   "failed to create GET coins",
+		},
+
+		"bad save data usecase": {
+			coinsUseCase: func() CoinsUseCase {
+				queryParams := map[string]string{
+					"start": "1",
+					"limit": "4",
+				}
+				m := NewMockCoinsUseCase(ctrl)
+				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
+
+				return m
+			}(),
+			saveDataUseCase: func() SaveDataUseCase {
+				m := NewMockSaveDataUseCase(ctrl)
+				m.EXPECT().SaveCoins(okResponse).Return(errors.New("failed to unmarshal coinsData")).Times(1)
+
+				return m
+			}(),
+			expQuery: map[string]string{
+				"start": "1",
+				"limit": "4",
+			},
+			expStatus: http.StatusInternalServerError,
+			expBody:   "failed to save coins",
+		},
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
@@ -205,7 +251,6 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 			router.Get("/coins", c.CoinsResty)
 			httpClient := &http.Client{
 				Transport: httpexpect.NewBinder(router),
-				Jar:       httpexpect.NewJar(),
 			}
 
 			e := httpexpect.WithConfig(httpexpect.Config{
@@ -217,9 +262,11 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 			})
 
 			e.GET("/coins").
-				WithQuery("start", "1").WithQuery("limit", "4").
+				// do I need to chech query params here
+				WithQuery("start", tt.expQuery["start"]).WithQuery("limit", tt.expQuery["limit"]).
 				Expect().
-				Status(http.StatusOK).Body()
+				Status(tt.expStatus).
+				Body().Contains(tt.expBody)
 
 		})
 	}

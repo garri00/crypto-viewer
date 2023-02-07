@@ -43,7 +43,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	if err := validateParams(queryParams); err != nil {
 		log.Print(fmt.Errorf("wrong query params: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("failed to create GET coins"))
+		w.Write([]byte("wrong query pqrams"))
 		return
 	}
 
@@ -61,7 +61,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("failed to save coins"))
 		return
 	}
-	
+
 	body, err := json.MarshalIndent(resp, "", " ")
 	if err != nil {
 		log.Print(err)
