@@ -14,15 +14,21 @@ func NewSaveData() SaveDataUseCase {
 }
 
 func (c SaveDataUseCase) SaveCoins(coinsData entities.CoinsData) error {
-
-	//Write coinsData to file
+	// Write coinsData to file
 	file, err := json.MarshalIndent(coinsData, "", " ")
 	if err != nil {
 		log.Print(err)
 		log.Print("failed to unmarshal coinsData")
+
 		return err
 	}
-	ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
+	err = ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
+	if err != nil {
+		log.Print(err)
+		log.Print("failed to save file")
+
+		return err
+	}
 
 	return nil
 }

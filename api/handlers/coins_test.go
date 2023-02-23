@@ -1,21 +1,23 @@
 package handlers
 
 import (
-	"crypto-viewer/src/entities"
 	"errors"
-	"github.com/gavv/httpexpect/v2"
-	"github.com/go-chi/chi/v5"
-	"github.com/golang/mock/gomock"
 	"net/http"
 	"testing"
 	"time"
+
+	"github.com/gavv/httpexpect/v2"
+	"github.com/go-chi/chi/v5"
+	"github.com/golang/mock/gomock"
+
+	"crypto-viewer/src/entities"
 )
 
 var okResponse = entities.CoinsData{
 
 	Coins: []entities.Coin{
 		{
-			Id:                0,
+			ID:                0,
 			Name:              "BTC",
 			Symbol:            "",
 			Slug:              "",
@@ -43,7 +45,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:                0,
+			ID:                0,
 			Name:              "",
 			Symbol:            "",
 			Slug:              "",
@@ -71,7 +73,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:                0,
+			ID:                0,
 			Name:              "",
 			Symbol:            "",
 			Slug:              "",
@@ -99,7 +101,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:                0,
+			ID:                0,
 			Name:              "",
 			Symbol:            "",
 			Slug:              "",

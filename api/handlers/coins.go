@@ -43,7 +43,11 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	if err := validateParams(queryParams); err != nil {
 		log.Print(fmt.Errorf("wrong query params: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("wrong query pqrams"))
+		_, err := w.Write([]byte("wrong query pqrams"))
+		if err != nil {
+			return
+		}
+
 		return
 	}
 
@@ -51,14 +55,22 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Print(fmt.Errorf("failed to create GET coins: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("failed to create GET coins"))
+		_, err := w.Write([]byte("failed to create GET coins"))
+		if err != nil {
+			return
+		}
+
 		return
 	}
 
 	if err := c.saveDataUseCase.SaveCoins(resp); err != nil {
 		log.Print(fmt.Errorf("failed to save coins: %w", err))
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("failed to save coins"))
+		_, err := w.Write([]byte("failed to save coins"))
+		if err != nil {
+			return
+		}
+
 		return
 	}
 
@@ -66,16 +78,14 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Print(err)
 		log.Print("failed to unmarshal coinsData")
+
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)
-
 }
-
 func validateParams(params map[string]string) error {
-
 	startValue, err := strconv.Atoi(params["start"])
 	if err != nil {
 		return errors.New("wrong start param")
@@ -88,7 +98,7 @@ func validateParams(params map[string]string) error {
 	if err != nil {
 		return errors.New("wrong limit param")
 	}
-	if limitValue < 1 && limitValue > 5000 {
+	if limitValue < 1 || limitValue > 5000 {
 		return errors.New("wrong limit param")
 	}
 

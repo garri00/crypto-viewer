@@ -1,13 +1,15 @@
 package adapters
 
 import (
-	"crypto-viewer/src/entities"
 	"encoding/json"
 	"errors"
+	"testing"
+
 	"github.com/go-resty/resty/v2"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
-	"testing"
+
+	"crypto-viewer/src/entities"
 )
 
 var params = map[string]string{
@@ -21,7 +23,7 @@ var okResponse = entities.CoinsData{
 
 	Coins: []entities.Coin{
 		{
-			Id:     1,
+			ID:     1,
 			Name:   "BitCoin",
 			Symbol: "BTC",
 			Quote: entities.Quote{
@@ -31,7 +33,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     300,
+			ID:     300,
 			Name:   "Etherym",
 			Symbol: "ETH",
 			Quote: entities.Quote{
@@ -41,7 +43,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     341,
+			ID:     341,
 			Name:   "BNB",
 			Symbol: "BNB",
 			Quote: entities.Quote{
@@ -51,7 +53,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     1233,
+			ID:     1233,
 			Name:   "Tether",
 			Symbol: "USDT",
 			Quote: entities.Quote{
@@ -101,7 +103,7 @@ func TestCoinsAdapter_GetCoins(t *testing.T) {
 				httpmock.RegisterResponderWithQuery("GET", requestPath, "start=1&limit=4", responder)
 			},
 			exp:    entities.CoinsData{},
-			expErr: errors.New("Code=400, Message=Invalid value for \"id\""),
+			expErr: errors.New("code=400, message=Invalid value for \"id\""),
 		},
 
 		"bad responce from CMC api: failed to unmarshal errResponse": {

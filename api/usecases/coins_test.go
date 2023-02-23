@@ -1,11 +1,13 @@
 package usecases
 
 import (
-	"crypto-viewer/src/entities"
 	"errors"
+	"testing"
+
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"testing"
+
+	"crypto-viewer/src/entities"
 )
 
 var queryParams = map[string]string{
@@ -17,7 +19,7 @@ var okResponse = entities.CoinsData{
 
 	Coins: []entities.Coin{
 		{
-			Id:     1,
+			ID:     1,
 			Name:   "BitCoin",
 			Symbol: "BTC",
 			Quote: entities.Quote{
@@ -27,7 +29,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     300,
+			ID:     300,
 			Name:   "Etherym",
 			Symbol: "ETH",
 			Quote: entities.Quote{
@@ -37,7 +39,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     341,
+			ID:     341,
 			Name:   "BNB",
 			Symbol: "BNB",
 			Quote: entities.Quote{
@@ -47,7 +49,7 @@ var okResponse = entities.CoinsData{
 			},
 		},
 		{
-			Id:     1233,
+			ID:     1233,
 			Name:   "Tether",
 			Symbol: "USDT",
 			Quote: entities.Quote{
@@ -63,7 +65,7 @@ var coinsExchangedUSDtoUAH = entities.CoinsData{
 
 	Coins: []entities.Coin{
 		{
-			Id:     1,
+			ID:     1,
 			Name:   "BitCoin",
 			Symbol: "BTC",
 			Quote: entities.Quote{
@@ -73,7 +75,7 @@ var coinsExchangedUSDtoUAH = entities.CoinsData{
 			},
 		},
 		{
-			Id:     300,
+			ID:     300,
 			Name:   "Etherym",
 			Symbol: "ETH",
 			Quote: entities.Quote{
@@ -83,7 +85,7 @@ var coinsExchangedUSDtoUAH = entities.CoinsData{
 			},
 		},
 		{
-			Id:     341,
+			ID:     341,
 			Name:   "BNB",
 			Symbol: "BNB",
 			Quote: entities.Quote{
@@ -93,7 +95,7 @@ var coinsExchangedUSDtoUAH = entities.CoinsData{
 			},
 		},
 		{
-			Id:     1233,
+			ID:     1233,
 			Name:   "Tether",
 			Symbol: "USDT",
 			Quote: entities.Quote{

@@ -1,28 +1,34 @@
 package api
 
 import (
-	"crypto-viewer/api/adapters"
-	"crypto-viewer/api/usecases"
 	"net/http"
 
-	"crypto-viewer/api/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-resty/resty/v2"
+
+	"crypto-viewer/api/adapters"
+	"crypto-viewer/api/handlers"
+	"crypto-viewer/api/usecases"
+	"crypto-viewer/src/config"
 )
 
 func NewRouter() *chi.Mux {
-
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
-		w.Write([]byte("welcome"))
+		_, err := w.Write([]byte("welcome"))
+		if err != nil {
+			return
+		}
 		w.WriteHeader(http.StatusOK)
 	})
 
+	configs := config.GetConfig()
+
 	restyClient := resty.New()
-	coinsAdapter := adapters.NewCoins(restyClient)
-	exchangeAdapter := adapters.NewExchange(restyClient)
+	coinsAdapter := adapters.NewCoins(restyClient, configs)
+	exchangeAdapter := adapters.NewExchange(restyClient, configs)
 
 	coinsUseCase := usecases.NewCoins(coinsAdapter, exchangeAdapter)
 	saveDataUseCase := usecases.NewSaveData()
@@ -31,5 +37,6 @@ func NewRouter() *chi.Mux {
 
 	r.Get("/home", handlers.HomeHandler)
 	r.Get("/coins", c.CoinsResty)
+
 	return r
 }
