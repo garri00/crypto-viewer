@@ -3,19 +3,17 @@ package config
 import "os"
 
 type Configs struct {
-	coinMarCapTokenAPI string
-	exchangeTokenAPI   string
+	CoinMarCapTokenAPI string
+	ExchangeTokenAPI   string
+	LogLevel           string
 }
 
-func (c Configs) GetCoinMarketTokenAPI() string {
-	return c.coinMarCapTokenAPI
+func GetConfig() Configs {
+	return сonfig
 }
 
-func (c Configs) GetExchangeTokenAPI() string {
-	return c.exchangeTokenAPI
-}
-
-var Config = Configs{
-	coinMarCapTokenAPI: os.Getenv("CMCTOKEN"),
-	exchangeTokenAPI:   os.Getenv("EXCHANGETOKEN"),
+var сonfig = Configs{
+	CoinMarCapTokenAPI: os.Getenv("CMCTOKEN"),
+	ExchangeTokenAPI:   os.Getenv("EXCHANGETOKEN"),
+	LogLevel:           os.Getenv("LOGLEVEL"),
 }
