@@ -1,31 +1,37 @@
 package usecases
 
 import (
-	"crypto-viewer/src/entities"
 	"encoding/json"
-	"io/ioutil"
-	"log"
+	"os"
+
+	"github.com/rs/zerolog"
+
+	"crypto-viewer/src/entities"
 )
 
-type SaveDataUseCase struct{}
+type SaveDataUseCase struct {
+	log zerolog.Logger
+}
 
-func NewSaveData() SaveDataUseCase {
-	return SaveDataUseCase{}
+func NewSaveData(l zerolog.Logger) SaveDataUseCase {
+	return SaveDataUseCase{
+		log: l,
+	}
 }
 
 func (c SaveDataUseCase) SaveCoins(coinsData entities.CoinsData) error {
 	// Write coinsData to file
 	file, err := json.MarshalIndent(coinsData, "", " ")
 	if err != nil {
-		log.Print(err)
-		log.Print("failed to unmarshal coinsData")
+		c.log.Error().Err(err).Msg("failed to unmarshal coinsData")
 
 		return err
 	}
-	err = ioutil.WriteFile("src/pkg/coinslist.json", file, 0644)
+
+	perm := 0600
+	err = os.WriteFile("src/pkg/coinslist.json", file, os.FileMode(perm))
 	if err != nil {
-		log.Print(err)
-		log.Print("failed to save file")
+		c.log.Error().Err(err).Msg("failed to save file")
 
 		return err
 	}

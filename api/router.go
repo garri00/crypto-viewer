@@ -11,6 +11,7 @@ import (
 	"crypto-viewer/api/handlers"
 	"crypto-viewer/api/usecases"
 	"crypto-viewer/src/config"
+	"crypto-viewer/src/logger"
 )
 
 func NewRouter() *chi.Mux {
@@ -27,13 +28,13 @@ func NewRouter() *chi.Mux {
 	configs := config.GetConfig()
 
 	restyClient := resty.New()
-	coinsAdapter := adapters.NewCoins(restyClient, configs)
-	exchangeAdapter := adapters.NewExchange(restyClient, configs)
+	coinsAdapter := adapters.NewCoins(restyClient, configs, logger.Log)
+	exchangeAdapter := adapters.NewExchange(restyClient, configs, logger.Log)
 
-	coinsUseCase := usecases.NewCoins(coinsAdapter, exchangeAdapter)
-	saveDataUseCase := usecases.NewSaveData()
+	coinsUseCase := usecases.NewCoins(coinsAdapter, exchangeAdapter, logger.Log)
+	saveDataUseCase := usecases.NewSaveData(logger.Log)
 
-	c := handlers.CoinsHendler(coinsUseCase, saveDataUseCase)
+	c := handlers.CoinsHendler(coinsUseCase, saveDataUseCase, logger.Log)
 
 	r.Get("/home", handlers.HomeHandler)
 	r.Get("/coins", c.CoinsResty)

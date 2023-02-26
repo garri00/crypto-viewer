@@ -5,18 +5,18 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/go-resty/resty/v2"
 	"github.com/rs/zerolog"
 
 	"crypto-viewer/src/config"
 	"crypto-viewer/src/entities"
-
-	"github.com/go-resty/resty/v2"
 )
 
-func NewExchange(r *resty.Client, c config.Configs) ExchangeAdapter {
+func NewExchange(r *resty.Client, c config.Configs, l zerolog.Logger) ExchangeAdapter {
 	return ExchangeAdapter{
 		restyClient: r,
 		config:      c,
+		log:         l,
 	}
 }
 
@@ -35,13 +35,14 @@ func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
 		SetHeader("Accepts", "application/json").
 		SetHeader("apikey", config.GetConfig().ExchangeTokenAPI).
 		Get("https://api.apilayer.com/currency_data/live")
-
 	if err != nil {
 		err := fmt.Errorf("cant call exchange api: %w", err)
 		c.log.Error().Err(err).Msgf("")
 
 		return entities.ExchangeRate{}, err
 	}
+
+	c.log.Debug().Any("status code", resp.StatusCode()).Any("body", resp.String()).Msg("")
 
 	exchangeRate := entities.ExchangeRate{}
 	if err := json.Unmarshal(resp.Body(), &exchangeRate); err != nil {

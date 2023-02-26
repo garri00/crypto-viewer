@@ -12,10 +12,11 @@ import (
 	"crypto-viewer/src/entities"
 )
 
-func NewCoins(r *resty.Client, c config.Configs) CoinsAdapter {
+func NewCoins(r *resty.Client, c config.Configs, l zerolog.Logger) CoinsAdapter {
 	return CoinsAdapter{
 		restyClient: r,
 		config:      c,
+		log:         l,
 	}
 }
 
@@ -33,14 +34,14 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 		SetHeader("Accepts", "application/json").
 		SetHeader("X-CMC_PRO_API_KEY", c.config.CoinMarCapTokenAPI).
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
-
-	// Check if request is OK
 	if err != nil {
 		err := fmt.Errorf("cant get request to CMC: %w", err)
-		c.log.Error().Err(err).Msgf("")
+		c.log.Error().Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}
+
+	c.log.Debug().Any("status code", resp.StatusCode()).Any("body", resp.String()).Msg("")
 
 	// Check response code from CMC API
 	if resp.StatusCode() != http.StatusOK {

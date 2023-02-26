@@ -3,10 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
-	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/rs/zerolog"
 
 	"crypto-viewer/src/entities"
 )
@@ -24,24 +24,27 @@ type SaveDataUseCase interface {
 type CoinsHandler struct {
 	coinsUseCase    CoinsUseCase
 	saveDataUseCase SaveDataUseCase
+	log             zerolog.Logger
 }
 
-func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase) CoinsHandler {
+func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase, l zerolog.Logger) CoinsHandler {
 	return CoinsHandler{
 		coinsUseCase:    coinsUseCase,
 		saveDataUseCase: saveDataUseCase,
+		log:             l,
 	}
 }
 
 func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
-	// Get params for Getcoins
 	queryParams := map[string]string{
 		"start": r.URL.Query().Get("start"),
 		"limit": r.URL.Query().Get("limit"),
 	}
 
+	c.log.Debug().Any("query params", queryParams).Msg("query params")
+
 	if err := validateParams(queryParams); err != nil {
-		log.Print(fmt.Errorf("wrong query params: %w", err))
+		c.log.Error().Err(err).Msg("wrong query params:")
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("wrong query pqrams"))
 		if err != nil {
@@ -53,7 +56,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := c.coinsUseCase.GetCoins(queryParams)
 	if err != nil {
-		log.Print(fmt.Errorf("failed to create GET coins: %w", err))
+		c.log.Error().Err(err).Msg("failed to create GET coins")
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("failed to create GET coins"))
 		if err != nil {
@@ -64,7 +67,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := c.saveDataUseCase.SaveCoins(resp); err != nil {
-		log.Print(fmt.Errorf("failed to save coins: %w", err))
+		c.log.Error().Err(err).Msg("failed to save coins")
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("failed to save coins"))
 		if err != nil {
@@ -76,14 +79,17 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	body, err := json.MarshalIndent(resp, "", " ")
 	if err != nil {
-		log.Print(err)
-		log.Print("failed to unmarshal coinsData")
+		c.log.Error().Err(err).Msg("failed to unmarshal coinsData")
 
 		return
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write(body)
+	_, err = w.Write(body)
+	if err != nil {
+		return
+	}
 }
 func validateParams(params map[string]string) error {
 	startValue, err := strconv.Atoi(params["start"])

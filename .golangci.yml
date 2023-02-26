@@ -31,6 +31,7 @@ run:
   # If false (default) - golangci-lint acquires file lock on start.
   allow-parallel-runners: true
 
+  go: '1.19'
 
 # output configuration options
 output:
@@ -96,7 +97,6 @@ linters:
     - gocritic
     - exportloopref
     - gocognit
-    - gofumpt
     - godot
 
   fast: false

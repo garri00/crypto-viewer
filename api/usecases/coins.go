@@ -2,7 +2,8 @@ package usecases
 
 import (
 	"fmt"
-	"log"
+
+	"github.com/rs/zerolog"
 
 	"crypto-viewer/src/entities"
 )
@@ -17,16 +18,18 @@ type ExchangeAdapter interface {
 	GetExchangeRate() (entities.ExchangeRate, error)
 }
 
-func NewCoins(coinsAdapter CoinsAdapter, exchangeAdapter ExchangeAdapter) CoinsUseCase {
+func NewCoins(coinsAdapter CoinsAdapter, exchangeAdapter ExchangeAdapter, l zerolog.Logger) CoinsUseCase {
 	return CoinsUseCase{
 		coinsAdapter:    coinsAdapter,
 		exchangeAdapter: exchangeAdapter,
+		log:             l,
 	}
 }
 
 type CoinsUseCase struct {
 	coinsAdapter    CoinsAdapter
 	exchangeAdapter ExchangeAdapter
+	log             zerolog.Logger
 }
 
 func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, error) {
@@ -34,7 +37,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 	coinsData, err := c.coinsAdapter.GetCoins(params)
 	if err != nil {
 		err := fmt.Errorf("cant call coins adapter: %w", err)
-		log.Print(err)
+		c.log.Error().Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}
@@ -43,7 +46,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 	exchangeRate, err := c.exchangeAdapter.GetExchangeRate()
 	if err != nil {
 		err := fmt.Errorf("cant call exchange adapter: %w", err)
-		log.Print(err)
+		c.log.Error().Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}

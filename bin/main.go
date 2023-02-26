@@ -2,27 +2,31 @@ package main
 
 import (
 	"net/http"
-
-	"github.com/rs/zerolog/log"
+	"time"
 
 	"crypto-viewer/api"
 	"crypto-viewer/src/config"
-	"crypto-viewer/src/logging"
+	"crypto-viewer/src/logger"
 )
 
 func main() {
 	configs := config.GetConfig()
 
-	logging.SetLogger(configs)
+	logger.SetLogLevel(configs)
 
-	log.Info().Msg("server started")
+	logger.Log.Info().Msg("server started")
 
 	r := api.NewRouter()
 
-	err := http.ListenAndServe(":8080", r)
-	if err != nil {
-		log.Info().Msg("server crashed")
-		return
+	server := &http.Server{
+		Addr:              ":8080",
+		Handler:           r,
+		ReadHeaderTimeout: 3 * time.Second,
 	}
-	log.Info().Msg("server stopped")
+
+	err := server.ListenAndServe()
+	if err != nil {
+		logger.Log.Info().Msg("server crashed")
+		panic(err)
+	}
 }
