@@ -29,7 +29,7 @@ func (c SaveDataUseCase) SaveCoins(coinsData entities.CoinsData) error {
 	}
 
 	perm := 0600
-	err = os.WriteFile("src/pkg/coinslist.json", file, os.FileMode(perm))
+	err = os.WriteFile("pkg/coinslist.json", file, os.FileMode(perm))
 	if err != nil {
 		c.log.Error().Err(err).Msg("failed to save file")
 

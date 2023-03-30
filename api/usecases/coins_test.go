@@ -131,11 +131,13 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 			coinsAdapter: func() CoinsAdapter {
 				m := NewMockCoinsAdapter(ctrl)
 				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
+
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
 				m.EXPECT().GetExchangeRate().Return(exchandeRateUSDtoUAH, nil).Times(1)
+
 				return m
 			}(),
 			exp:    coinsExchangedUSDtoUAH,
@@ -146,11 +148,13 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 			coinsAdapter: func() CoinsAdapter {
 				m := NewMockCoinsAdapter(ctrl)
 				m.EXPECT().GetCoins(queryParams).Return(entities.CoinsData{}, mockedError).Times(1)
+
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
 				m.EXPECT().GetExchangeRate().Times(0)
+
 				return m
 			}(),
 			exp:    entities.CoinsData{},
@@ -161,11 +165,13 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 			coinsAdapter: func() CoinsAdapter {
 				m := NewMockCoinsAdapter(ctrl)
 				m.EXPECT().GetCoins(queryParams).Return(okResponse, nil).Times(1)
+
 				return m
 			}(),
 			exchangeAdapter: func() ExchangeAdapter {
 				m := NewMockExchangeAdapter(ctrl)
 				m.EXPECT().GetExchangeRate().Return(entities.ExchangeRate{}, mockedError).Times(1)
+
 				return m
 			}(),
 			exp:    entities.CoinsData{},
@@ -179,7 +185,9 @@ func TestCoinsUseCase_GetCoins(t *testing.T) {
 				coinsAdapter:    tt.coinsAdapter,
 				exchangeAdapter: tt.exchangeAdapter,
 			}
+
 			got, err := c.GetCoins(queryParams)
+			
 			assert.Equal(t, tt.exp, got)
 			if tt.expErr != nil {
 				assert.EqualError(t, err, tt.expErr.Error())

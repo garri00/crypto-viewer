@@ -1,0 +1,116 @@
+{
+ "data": [
+  {
+   "id": 1,
+   "name": "Bitcoin",
+   "symbol": "BTC",
+   "slug": "bitcoin",
+   "num_market_pairs": 10128,
+   "date_added": "2013-04-28T00:00:00Z",
+   "max_supply": 21000000,
+   "circulating_supply": 19331650,
+   "total_supply": 19331650,
+   "quote": {
+    "USD": {
+     "price": 1045040.8483369517,
+     "volume_24h": 21184203393.504433,
+     "volume_change_24h": 26.2581,
+     "percent_change_1h": 0.36290341,
+     "percent_change_24h": 4.11821996,
+     "percent_change_7d": -0.47861013,
+     "percent_change_30d": 21.75042077,
+     "percent_change_60d": 23.01976165,
+     "percent_change_90d": 70.26930359,
+     "market_cap": 547151444868.7962,
+     "market_cap_dominance": 46.2766,
+     "fully_diluted_market_cap": 594371424179.76,
+     "last_updated": "2023-03-29T18:49:00Z"
+    }
+   }
+  },
+  {
+   "id": 1027,
+   "name": "Ethereum",
+   "symbol": "ETH",
+   "slug": "ethereum",
+   "num_market_pairs": 6661,
+   "date_added": "2015-08-07T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 122373866.2178,
+   "total_supply": 122373866.2178,
+   "quote": {
+    "USD": {
+     "price": 66590.86491569971,
+     "volume_24h": 9643599646.235489,
+     "volume_change_24h": 23.6688,
+     "percent_change_1h": 0.37298309,
+     "percent_change_24h": 1.84653589,
+     "percent_change_7d": 0.42841046,
+     "percent_change_30d": 11.17774106,
+     "percent_change_60d": 14.59070364,
+     "percent_change_90d": 50.58710864,
+     "market_cap": 220703234148.4989,
+     "market_cap_dominance": 18.6631,
+     "fully_diluted_market_cap": 220703234148.5,
+     "last_updated": "2023-03-29T18:49:00Z"
+    }
+   }
+  },
+  {
+   "id": 825,
+   "name": "Tether",
+   "symbol": "USDT",
+   "slug": "tether",
+   "num_market_pairs": 50343,
+   "date_added": "2015-02-25T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 79520894633.2258,
+   "total_supply": 83091735571.92152,
+   "quote": {
+    "USD": {
+     "price": 36.92644321609572,
+     "volume_24h": 33280098004.57573,
+     "volume_change_24h": 27.831,
+     "percent_change_1h": -0.00739134,
+     "percent_change_24h": 0.01095343,
+     "percent_change_7d": -0.18076285,
+     "percent_change_30d": -0.00038129,
+     "percent_change_60d": -0.01267528,
+     "percent_change_90d": 0.03639508,
+     "market_cap": 79528738899.49312,
+     "market_cap_dominance": 6.7251,
+     "fully_diluted_market_cap": 83099932080.54,
+     "last_updated": "2023-03-29T18:49:00Z"
+    }
+   }
+  },
+  {
+   "id": 1839,
+   "name": "BNB",
+   "symbol": "BNB",
+   "slug": "bnb",
+   "num_market_pairs": 1237,
+   "date_added": "2017-07-25T00:00:00Z",
+   "max_supply": null,
+   "circulating_supply": 157888935.62110162,
+   "total_supply": 159979963.59042934,
+   "quote": {
+    "USD": {
+     "price": 11681.241775274146,
+     "volume_24h": 483224522.61026853,
+     "volume_change_24h": -5.8372,
+     "percent_change_1h": 0.12130365,
+     "percent_change_24h": 0.87032284,
+     "percent_change_7d": -3.90250608,
+     "percent_change_30d": 4.91618018,
+     "percent_change_60d": 3.32959651,
+     "percent_change_90d": 28.73830683,
+     "market_cap": 49951216610.86282,
+     "market_cap_dominance": 4.2252,
+     "fully_diluted_market_cap": 50612753726.33,
+     "last_updated": "2023-03-29T18:49:00Z"
+    }
+   }
+  }
+ ]
+}
