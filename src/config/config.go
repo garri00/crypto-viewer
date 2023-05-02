@@ -1,62 +1,46 @@
 package config
 
 import (
-	"os"
-
 	"github.com/joho/godotenv"
+	"github.com/kelseyhightower/envconfig"
 )
 
 type Configs struct {
-	CoinMarCapTokenAPI string
-	ExchangeTokenAPI   string
-	LogLevel           string
-	PosgrePass         string
-	MongoPass          string
+	CoinMarCapTokenAPI string `envconfig:"CMCTOKEN"`
+	ExchangeTokenAPI   string `envconfig:"EXCHANGETOKEN"`
+	LogLevel           string `envconfig:"LOGLEVEL"`
 	MongoConf          MongoDBConf
 	PostgreConf        PostgreDBConf
 }
 
 type MongoDBConf struct {
-	Host     string
-	Port     string
-	Database string
-	Username string
-	Password string
+	Host     string `envconfig:"MGHOST" default:"localhost"`
+	Port     string `envconfig:"MGPORT" default:"27017"`
+	Database string `envconfig:"MGDATABASE" default:"admin"`
+	Username string `envconfig:"MGUSR"`
+	Password string `envconfig:"MGPAS"`
 }
 
 type PostgreDBConf struct {
-	Host     string
-	Port     string
-	Database string
-	Username string
-	Password string
+	Host     string `envconfig:"PGHOST" default:"localhost"`
+	Port     string `envconfig:"PGPORT" default:"5432"`
+	Database string `envconfig:"PGDATABASE" default:"crypto"`
+	Username string `envconfig:"PGUSR"`
+	Password string `envconfig:"PGPAS"`
 }
 
 func GetConfig() (Configs, error) {
+	var cfg Configs
+
 	err := godotenv.Load()
 	if err != nil {
-		return Configs{}, err
+		return cfg, err
 	}
 
-	var сonfig = Configs{
-		CoinMarCapTokenAPI: os.Getenv("CMCTOKEN"),
-		ExchangeTokenAPI:   os.Getenv("EXCHANGETOKEN"),
-		LogLevel:           os.Getenv("LOGLEVEL"),
-
-		MongoConf: MongoDBConf{
-			Host:     "localhost",
-			Port:     "5432",
-			Database: "crypto",
-			Username: os.Getenv("MGUSR"),
-			Password: os.Getenv("MGPAS"),
-		},
-		PostgreConf: PostgreDBConf{
-			Host:     "locachost",
-			Port:     "27017",
-			Username: os.Getenv("PGUSR"),
-			Password: os.Getenv("PGPAS"),
-		},
+	err = envconfig.Process("myApp", &cfg)
+	if err != nil {
+		return cfg, err
 	}
 
-	return сonfig, nil
+	return cfg, nil
 }

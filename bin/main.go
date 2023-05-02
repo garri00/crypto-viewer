@@ -32,4 +32,5 @@ func main() {
 		logger.Log.Info().Msg("server crashed")
 		panic(err)
 	}
+
 }

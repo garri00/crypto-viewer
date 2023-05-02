@@ -1,0 +1,18 @@
+package dtos
+
+import (
+	"time"
+)
+
+type Coin struct {
+	ID             int       `bson:"_id,omitempty"`
+	CoinID         int       `bson:"coin-id"`
+	Name           string    `bson:"name"`
+	Symbol         string    `bson:"symbol"`
+	NumMarketPairs int       `bson:"numMarketPairs"`
+	DateAdded      time.Time `bson:"dateAdded"`
+	MaxSupply      *int      `bson:"maxSupply"`
+	Price          float64   `bson:"price"`
+	MarketCap      float64   `bson:"marketCap"`
+	LastUpdated    time.Time `bson:"lastUpdated"`
+}

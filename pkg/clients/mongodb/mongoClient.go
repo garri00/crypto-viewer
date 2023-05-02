@@ -1,9 +1,10 @@
-package mongo
+package mongodb
 
 import (
 	"context"
 	"fmt"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
@@ -15,17 +16,21 @@ func NewClient(ctx context.Context, configs config.MongoDBConf) (db *mongo.Datab
 	var mongoDBURL string
 	mongoDBURL = fmt.Sprintf("mongodb://%s:%s@%s:%s", configs.Username, configs.Password, configs.Host, configs.Port)
 
-	clientOptions := options.Client().ApplyURI(mongoDBURL)
-	client, err := mongo.Connect(ctx, clientOptions)
+	opts := options.Client().ApplyURI(mongoDBURL)
+
+	client, err := mongo.Connect(ctx, opts)
 	if err != nil {
-		logger.Log.Error().Msg("failed to connect to mongoDB")
+		logger.Log.Err(err).Msg("failed to connect mongoDB")
 		return nil, err
 	}
 
-	if err := client.Ping(ctx, nil); err != nil {
-		logger.Log.Error().Msg("failed to ping to mongoDB")
+	var result bson.M
+	if err := client.Database(configs.Database).RunCommand(ctx, bson.D{{"ping", 1}}).Decode(&result); err != nil {
+		logger.Log.Err(err).Msg("failed to ping mongoDB")
 		return nil, err
 	}
+
+	logger.Log.Info().Msgf("successfully connected to MongoDB host: %s, database: %s", configs.Host, configs.Database)
 
 	return client.Database(configs.Database), nil
 }

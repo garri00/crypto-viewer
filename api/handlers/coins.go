@@ -21,16 +21,22 @@ type SaveDataUseCase interface {
 	SaveCoins(coinsData entities.CoinsData) error
 }
 
+type SaveCoinsDB interface {
+	SaveCoinsDB(coinsData entities.CoinsData) error
+}
+
 type CoinsHandler struct {
 	coinsUseCase    CoinsUseCase
 	saveDataUseCase SaveDataUseCase
+	saveCoinsDB     SaveCoinsDB
 	log             zerolog.Logger
 }
 
-func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase, l zerolog.Logger) CoinsHandler {
+func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase, saveCoinsDB SaveCoinsDB, l zerolog.Logger) CoinsHandler {
 	return CoinsHandler{
 		coinsUseCase:    coinsUseCase,
 		saveDataUseCase: saveDataUseCase,
+		saveCoinsDB:     saveCoinsDB,
 		log:             l,
 	}
 }
@@ -73,6 +79,13 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+
+		return
+	}
+
+	if err := c.saveCoinsDB.SaveCoinsDB(resp); err != nil {
+		c.log.Error().Err(err).Msg("failed to save coins into db")
+		w.WriteHeader(http.StatusInternalServerError)
 
 		return
 	}

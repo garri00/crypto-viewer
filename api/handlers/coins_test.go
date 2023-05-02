@@ -163,8 +163,7 @@ func TestCoinsHandler_CoinsResty(t *testing.T) {
 				"limit": "4",
 			},
 			expStatus: http.StatusOK,
-			// how to send exp body in succes
-			expBody: "\"name\": \"BTC\"",
+			expBody:   "\"name\": \"BTC\"",
 		},
 
 		"bad query params": {
