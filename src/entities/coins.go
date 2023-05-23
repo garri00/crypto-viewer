@@ -31,7 +31,7 @@ type Coin struct {
 	Slug              string    `json:"slug" bson:"slug"`
 	NumMarketPairs    int       `json:"num_market_pairs" bson:"numMarketPairs"`
 	DateAdded         time.Time `json:"date_added" bson:"dateAdded"`
-	MaxSupply         *int      `json:"max_supply" bson:"maxSupply"`
+	MaxSupply         float64   `json:"max_supply" bson:"maxSupply"`
 	CirculatingSupply float64   `json:"circulating_supply" bson:"circulatingSupply"`
 	TotalSupply       float64   `json:"total_supply" bson:"totalSupply"`
 	Quote             `json:"quote" bson:"quote"`

@@ -9,7 +9,8 @@ import (
 	"github.com/go-resty/resty/v2"
 
 	"crypto-viewer/api/adapters"
-	"crypto-viewer/api/adapters/db"
+	"crypto-viewer/api/adapters/db/mongo"
+	"crypto-viewer/api/adapters/db/postgres"
 	"crypto-viewer/api/handlers"
 	"crypto-viewer/api/usecases"
 	"crypto-viewer/pkg/clients/mongodb"
@@ -36,14 +37,14 @@ func NewRouter(configs config.Configs) *chi.Mux {
 		logger.Log.Err(err).Msg("failed to create mongo client")
 		return nil
 	}
-	coinsCollection := db.NewStorageMG("crypto", mongoClient, logger.Log)
+	coinsCollection := mongo.NewStorageMG("crypto", mongoClient, logger.Log)
 
 	postgresClient, err := posgresql.NewClient(ctx, configs.PostgreConf)
 	if err != nil {
 		logger.Log.Err(err).Msg("failed to create postgres")
 	}
 
-	_ = db.NewStoragePG(postgresClient, logger.Log)
+	_ = postgres.NewStoragePG(postgresClient, logger.Log)
 
 	restyClient := resty.New()
 	coinsAdapter := adapters.NewCoins(restyClient, configs, logger.Log)

@@ -1,6 +1,4 @@
--- +goose Up
--- +goose StatementBegin
-CREATE TABLE crypto.coins
+CREATE TABLE IF NOT EXISTS crypto.coins
 (
     id   UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     coinID         int,
@@ -13,9 +11,3 @@ CREATE TABLE crypto.coins
     marketCap      float4,
     lastUpdated    timestamp
 );
--- +goose StatementEnd
-
--- +goose Down
--- +goose StatementBegin
-DROP TABLE crypto.coins;
--- +goose StatementEnd

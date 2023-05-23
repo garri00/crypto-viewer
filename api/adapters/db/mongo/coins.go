@@ -1,4 +1,4 @@
-package db
+package mongo
 
 import (
 	"context"
@@ -36,7 +36,7 @@ func (d storageMongo) Create(ctx context.Context, coin dtos.Coin) error {
 
 	oid, ok := result.InsertedID.(primitive.ObjectID)
 	if ok {
-		fmt.Println(oid.Hex())
+		d.logger.Debug().Msgf("coins with id (%v) saved", oid.Hex())
 		return nil
 	}
 

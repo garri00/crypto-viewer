@@ -11,7 +11,7 @@ type Coin struct {
 	Symbol         string    `bson:"symbol"`
 	NumMarketPairs int       `bson:"numMarketPairs"`
 	DateAdded      time.Time `bson:"dateAdded"`
-	MaxSupply      *int      `bson:"maxSupply"`
+	MaxSupply      float64   `bson:"maxSupply"`
 	Price          float64   `bson:"price"`
 	MarketCap      float64   `bson:"marketCap"`
 	LastUpdated    time.Time `bson:"lastUpdated"`

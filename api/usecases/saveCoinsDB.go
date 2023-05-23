@@ -41,8 +41,6 @@ func (s SaveCoinsDB) SaveCoinsDB(coinsData entities.CoinsData) error {
 		if err != nil {
 			return err
 		}
-
-		//s.log.Debug().Msgf("coins with id (%v) saved", isCreated)
 	}
 
 	return nil
