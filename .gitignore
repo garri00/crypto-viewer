@@ -1,2 +1,3 @@
+test.http
 /.idea
-.http
+.env
