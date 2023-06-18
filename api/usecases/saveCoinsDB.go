@@ -23,7 +23,6 @@ func NewSaveCoinsDB(save clients.Storage, l zerolog.Logger) SaveCoinsDB {
 }
 
 func (s SaveCoinsDB) SaveCoinsDB(coinsData entities.CoinsData) error {
-
 	for i := 0; i < len(coinsData.Coins); i++ {
 		coin := dtos.Coin{
 			CoinID:         coinsData.Coins[i].ID,
@@ -39,6 +38,8 @@ func (s SaveCoinsDB) SaveCoinsDB(coinsData entities.CoinsData) error {
 
 		err := s.db.Create(context.Background(), coin)
 		if err != nil {
+			s.log.Err(err).Msg("failed to save coins data")
+
 			return err
 		}
 	}

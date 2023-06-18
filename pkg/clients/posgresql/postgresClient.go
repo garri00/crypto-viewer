@@ -29,13 +29,15 @@ func NewClient(ctx context.Context, configs config.PostgreDBConf) (db *pgxpool.P
 
 	dbpool, err := pgxpool.New(ctx, connectionString)
 	if err != nil {
-		logger.Log.Err(err).Msg("failed to connect postgreDB")
+		logger.Log.Err(err).Msg("failed to connect postgresDB")
+
 		return nil, err
 	}
 
 	err = dbpool.Ping(ctx)
 	if err != nil {
-		logger.Log.Err(err).Msg("failed to ping postgreDB")
+		logger.Log.Err(err).Msg("failed to ping postgresDB")
+
 		return nil, err
 	}
 
@@ -44,15 +46,19 @@ func NewClient(ctx context.Context, configs config.PostgreDBConf) (db *pgxpool.P
 	m, err := migrate.New("file://src/migrations", connectionString)
 	if err != nil {
 		logger.Log.Err(err).Msg("failed to find migrations")
+
 		return nil, err
 	}
 
-	//TODO: Як правильно тут обробити помилку бо при вже наявній міграції видає помилку no changes
+	//TODO: Error handling improvement
 	if err := m.Up(); err != nil {
 		logger.Log.Err(err).Msg("migration up with err")
 	}
 
 	version, _, err := m.Version()
+	if err != nil {
+		logger.Log.Err(err).Msgf("migration up with err to ver %s", version)
+	}
 	log.Info().Msgf("database migrated to ver %v", version)
 
 	return dbpool, nil

@@ -36,7 +36,7 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 		Get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
 	if err != nil {
 		err := fmt.Errorf("cant get request to CMC: %w", err)
-		c.log.Error().Err(err).Msg("")
+		c.log.Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}
@@ -48,12 +48,12 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 		errResponse := entities.Status{}
 		if err := json.Unmarshal(resp.Body(), &errResponse); err != nil {
 			err := fmt.Errorf("failed to unmarshal errResponse: %w", err)
-			c.log.Error().Err(err).Msgf("")
+			c.log.Err(err).Msgf("")
 
 			return entities.CoinsData{}, err
 		}
 		err := fmt.Errorf("code=%d, message=%s", errResponse.Body.ErrorCode, errResponse.Body.ErrorMessage)
-		c.log.Error().Err(err).Msgf("")
+		c.log.Err(err).Msgf("")
 
 		return entities.CoinsData{}, err
 	}
@@ -61,7 +61,7 @@ func (c CoinsAdapter) GetCoins(params map[string]string) (entities.CoinsData, er
 	coinsData := entities.CoinsData{}
 	if err := json.Unmarshal(resp.Body(), &coinsData); err != nil {
 		err := fmt.Errorf("failed to unmarshal coinsData: %w", err)
-		c.log.Error().Err(err).Msgf("")
+		c.log.Err(err).Msgf("")
 
 		return entities.CoinsData{}, err
 	}

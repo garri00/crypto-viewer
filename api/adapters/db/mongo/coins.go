@@ -3,7 +3,6 @@ package mongo
 import (
 	"context"
 	"fmt"
-	"strconv"
 
 	"github.com/rs/zerolog"
 	"go.mongodb.org/mongo-driver/bson"
@@ -11,7 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 
 	"crypto-viewer/pkg/clients"
-	"crypto-viewer/src/entities"
 	"crypto-viewer/src/entities/dtos"
 )
 
@@ -31,16 +29,19 @@ func (d storageMongo) Create(ctx context.Context, coin dtos.Coin) error {
 	result, err := d.collection.InsertOne(ctx, coin)
 	if err != nil {
 		d.logger.Error().Err(err).Msg("Didn't created coin instance")
+
 		return err
 	}
 
 	oid, ok := result.InsertedID.(primitive.ObjectID)
 	if ok {
 		d.logger.Debug().Msgf("coins with id (%v) saved", oid.Hex())
+
 		return nil
 	}
 
 	d.logger.Error().Err(err).Msg("failed to convert object_id to hex")
+
 	return err
 }
 
@@ -48,6 +49,7 @@ func (d storageMongo) FindOne(ctx context.Context, id string) (coin dtos.Coin, e
 	oid, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		d.logger.Error().Err(err).Msgf("failed to convert hex to objectid. hex: %s", id)
+
 		return coin, err
 	}
 
@@ -57,25 +59,26 @@ func (d storageMongo) FindOne(ctx context.Context, id string) (coin dtos.Coin, e
 
 	if result.Err() != nil {
 		d.logger.Error().Err(err).Msgf("failed to find one user by id: %s", id)
+
 		return coin, err
 	}
 
 	if err = result.Decode(&coin); err != nil {
 		d.logger.Error().Err(err).Msgf("failed to decode user by id: %s", id)
+
 		return coin, err
 	}
 
 	return coin, nil
 }
 
-func (d storageMongo) Update(ctx context.Context, coin entities.Coin) error {
-	objectID := strconv.Itoa(coin.ID)
+func (d storageMongo) Update(ctx context.Context, c dtos.Coin) error {
+	filter := bson.M{"_id": c.ID}
 
-	filter := bson.M{"_id": objectID}
-
-	userBytes, err := bson.Marshal(coin)
+	userBytes, err := bson.Marshal(c)
 	if err != nil {
-		d.logger.Error().Err(err).Msg("failed to marhsal user")
+		d.logger.Error().Err(err).Msg("failed to marshal user")
+
 		return err
 	}
 
@@ -83,6 +86,7 @@ func (d storageMongo) Update(ctx context.Context, coin entities.Coin) error {
 	err = bson.Unmarshal(userBytes, &updateUserObj)
 	if err != nil {
 		d.logger.Error().Err(err).Msg("failed to unmarshal user bytes")
+
 		return err
 	}
 
@@ -93,6 +97,7 @@ func (d storageMongo) Update(ctx context.Context, coin entities.Coin) error {
 	result, err := d.collection.UpdateOne(ctx, filter, update)
 	if err != nil {
 		d.logger.Error().Err(err).Msg("failed to execute update user query")
+
 		return err
 	}
 
@@ -107,6 +112,7 @@ func (d storageMongo) Delete(ctx context.Context, id string) error {
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		d.logger.Error().Err(err).Msg("failed to convert user ID to ObjectID")
+
 		return err
 	}
 
@@ -115,6 +121,7 @@ func (d storageMongo) Delete(ctx context.Context, id string) error {
 	result, err := d.collection.DeleteOne(ctx, filter)
 	if err != nil {
 		d.logger.Error().Err(err).Msg("failed to execute query")
+
 		return err
 	}
 	if result.DeletedCount == 0 {
@@ -128,11 +135,13 @@ func (d storageMongo) FindAll(ctx context.Context) (coins []dtos.Coin, err error
 	cursor, err := d.collection.Find(ctx, bson.M{})
 	if cursor.Err() != nil {
 		d.logger.Error().Err(err).Msg("failed to find all coins")
+
 		return coins, err
 	}
 
 	if err = cursor.All(ctx, &coins); err != nil {
 		d.logger.Error().Err(err).Msg("failed to read all documents from cursor")
+
 		return coins, err
 	}
 

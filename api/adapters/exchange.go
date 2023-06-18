@@ -37,7 +37,7 @@ func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
 		Get("https://api.apilayer.com/currency_data/live")
 	if err != nil {
 		err := fmt.Errorf("cant call exchange api: %w", err)
-		c.log.Error().Err(err).Msgf("")
+		c.log.Err(err).Msgf("")
 
 		return entities.ExchangeRate{}, err
 	}
@@ -47,14 +47,14 @@ func (c ExchangeAdapter) GetExchangeRate() (entities.ExchangeRate, error) {
 	exchangeRate := entities.ExchangeRate{}
 	if err := json.Unmarshal(resp.Body(), &exchangeRate); err != nil {
 		err := fmt.Errorf("failed to unmarshal exchangeRateData: %w", err)
-		c.log.Error().Err(err).Msgf("")
+		c.log.Err(err).Msgf("")
 
 		return entities.ExchangeRate{}, err
 	}
 
 	if !exchangeRate.Success {
 		err := errors.New("can`t get exchange rate data")
-		c.log.Error().Err(err).Msgf("")
+		c.log.Err(err).Msgf("")
 
 		return entities.ExchangeRate{}, err
 	}

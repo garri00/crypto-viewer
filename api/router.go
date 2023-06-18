@@ -35,6 +35,7 @@ func NewRouter(configs config.Configs) *chi.Mux {
 	mongoClient, err := mongodb.NewClient(ctx, configs.MongoConf)
 	if err != nil {
 		logger.Log.Err(err).Msg("failed to create mongo client")
+
 		return nil
 	}
 	_ = mongo.NewStorageMG("crypto", mongoClient, logger.Log)
@@ -54,7 +55,7 @@ func NewRouter(configs config.Configs) *chi.Mux {
 	saveDataUseCase := usecases.NewSaveData(logger.Log)
 	saveCoinsDBUsecase := usecases.NewSaveCoinsDB(coinsCollection, logger.Log)
 
-	c := handlers.CoinsHendler(coinsUseCase, saveDataUseCase, saveCoinsDBUsecase, logger.Log)
+	c := handlers.NewCoinsHandler(coinsUseCase, saveDataUseCase, saveCoinsDBUsecase, logger.Log)
 
 	r.Get("/home", handlers.HomeHandler)
 	r.Get("/coins", c.CoinsResty)

@@ -5,7 +5,7 @@ import (
 )
 
 type Coin struct {
-	ID             int       `bson:"_id,omitempty"`
+	ID             string    `bson:"_id,omitempty"`
 	CoinID         int       `bson:"coin-id"`
 	Name           string    `bson:"name"`
 	Symbol         string    `bson:"symbol"`

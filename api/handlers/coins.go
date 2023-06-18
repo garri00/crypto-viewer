@@ -32,7 +32,7 @@ type CoinsHandler struct {
 	log             zerolog.Logger
 }
 
-func CoinsHendler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase, saveCoinsDB SaveCoinsDB, l zerolog.Logger) CoinsHandler {
+func NewCoinsHandler(coinsUseCase CoinsUseCase, saveDataUseCase SaveDataUseCase, saveCoinsDB SaveCoinsDB, l zerolog.Logger) CoinsHandler {
 	return CoinsHandler{
 		coinsUseCase:    coinsUseCase,
 		saveDataUseCase: saveDataUseCase,
@@ -50,9 +50,9 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	c.log.Debug().Any("query params", queryParams).Msg("query params")
 
 	if err := validateParams(queryParams); err != nil {
-		c.log.Error().Err(err).Msg("wrong query params:")
+		c.log.Err(err).Msg("wrong query params:")
 		w.WriteHeader(http.StatusInternalServerError)
-		_, err := w.Write([]byte("wrong query pqrams"))
+		_, err := w.Write([]byte("wrong query params"))
 		if err != nil {
 			return
 		}
@@ -62,7 +62,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := c.coinsUseCase.GetCoins(queryParams)
 	if err != nil {
-		c.log.Error().Err(err).Msg("failed to create GET coins")
+		c.log.Err(err).Msg("failed to create GET coins")
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("failed to create GET coins"))
 		if err != nil {
@@ -73,7 +73,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := c.saveDataUseCase.SaveCoins(resp); err != nil {
-		c.log.Error().Err(err).Msg("failed to save coins")
+		c.log.Err(err).Msg("failed to save coins")
 		w.WriteHeader(http.StatusInternalServerError)
 		_, err := w.Write([]byte("failed to save coins"))
 		if err != nil {
@@ -84,7 +84,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := c.saveCoinsDB.SaveCoinsDB(resp); err != nil {
-		c.log.Error().Err(err).Msg("failed to save coins into db")
+		c.log.Err(err).Msg("failed to save coins into db")
 		w.WriteHeader(http.StatusInternalServerError)
 
 		return
@@ -92,7 +92,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 
 	body, err := json.MarshalIndent(resp, "", " ")
 	if err != nil {
-		c.log.Error().Err(err).Msg("failed to unmarshal coinsData")
+		c.log.Err(err).Msg("failed to unmarshal coinsData")
 
 		return
 	}
@@ -104,6 +104,7 @@ func (c CoinsHandler) CoinsResty(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
 func validateParams(params map[string]string) error {
 	startValue, err := strconv.Atoi(params["start"])
 	if err != nil {

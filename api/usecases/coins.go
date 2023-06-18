@@ -37,7 +37,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 	coinsData, err := c.coinsAdapter.GetCoins(params)
 	if err != nil {
 		err := fmt.Errorf("cant call coins adapter: %w", err)
-		c.log.Error().Err(err).Msg("")
+		c.log.Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}
@@ -46,7 +46,7 @@ func (c CoinsUseCase) GetCoins(params map[string]string) (entities.CoinsData, er
 	exchangeRate, err := c.exchangeAdapter.GetExchangeRate()
 	if err != nil {
 		err := fmt.Errorf("cant call exchange adapter: %w", err)
-		c.log.Error().Err(err).Msg("")
+		c.log.Err(err).Msg("")
 
 		return entities.CoinsData{}, err
 	}
