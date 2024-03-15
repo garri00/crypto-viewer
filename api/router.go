@@ -21,7 +21,13 @@ import (
 
 func NewRouter(configs config.Configs) *chi.Mux {
 	r := chi.NewRouter()
+
+	// A good base middleware stack
+	r.Use(middleware.RequestID)
+	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+
 	r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
 		_, err := w.Write([]byte("welcome"))
 		if err != nil {
